@@ -63,7 +63,7 @@ export default function CaseStudy() {
             {caseBlocks.map((block) => (
               <motion.div
                 key={block.title}
-                className="glass-panel rounded-2xl p-5 sm:p-6 hover:bg-white/8 transition-colors duration-300"
+                className="glass-panel rounded-2xl p-5 sm:p-6 hover:bg-bg-elevated/60 transition-colors duration-300"
                 variants={fadeUp}
               >
                 <h3 className="font-heading text-base sm:text-lg font-semibold text-lavender mb-3">

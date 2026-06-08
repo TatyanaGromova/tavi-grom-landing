@@ -62,18 +62,16 @@ function HeroVisualComposition({ prefersReducedMotion }) {
           className="absolute inset-0 flex items-center justify-center"
           style={prefersReducedMotion ? {} : { x: springX, y: springY }}
         >
-          <div className="absolute w-[70%] h-[76%] rounded-[2rem] border border-lavender/12 bg-lavender/[0.04]" aria-hidden="true" />
+          <div className="absolute w-[72%] h-[78%] rounded-[2rem] border border-lavender/10 bg-lavender/[0.03]" aria-hidden="true" />
+          <div className="absolute w-[76%] h-[82%] rounded-[2.25rem] border border-white/[0.04]" aria-hidden="true" />
 
           <motion.div
-            className="relative w-[66%] z-20 rounded-[1.75rem] overflow-hidden"
-            style={{
-              boxShadow:
-                '0 0 0 1px rgba(196,181,216,0.22), 0 24px 64px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.1)',
-            }}
-            whileHover={prefersReducedMotion ? {} : { scale: 1.015 }}
+            className="relative w-[66%] z-20 rounded-[1.75rem] overflow-hidden premium-frame"
+            whileHover={prefersReducedMotion ? {} : { scale: 1.012 }}
             transition={{ type: 'spring', stiffness: 300, damping: 24 }}
           >
-            <div className="absolute top-0 left-0 right-0 z-20 px-4 py-3 flex items-center justify-between">
+            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/[0.06] to-transparent z-20 pointer-events-none" aria-hidden="true" />
+            <div className="absolute top-0 left-0 right-0 z-30 px-4 py-3 flex items-center justify-between">
               <span className="text-[10px] sm:text-xs uppercase tracking-[0.15em] text-lavender/70 font-medium">
                 Главный визуал
               </span>
@@ -124,13 +122,8 @@ function HeroVisualComposition({ prefersReducedMotion }) {
       </div>
 
       <div className="sm:hidden relative w-full max-w-sm mx-auto">
-        <div
-          className="relative rounded-2xl overflow-hidden"
-          style={{
-            boxShadow:
-              '0 0 0 1px rgba(196,181,216,0.2), 0 16px 48px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)',
-          }}
-        >
+        <div className="relative rounded-2xl overflow-hidden premium-frame">
+          <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/[0.05] to-transparent z-20 pointer-events-none" aria-hidden="true" />
           <div className="absolute top-0 left-0 right-0 z-20 px-4 py-2.5 flex items-center justify-between">
             <span className="text-[10px] uppercase tracking-[0.15em] text-lavender/70 font-medium">
               Главный визуал
@@ -236,7 +229,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.h1
-              className="font-heading text-[1.7rem] sm:text-[2.4rem] md:text-[2.75rem] lg:text-[3rem] font-bold text-milk leading-[1.13] tracking-tight max-w-[18ch] sm:max-w-none"
+              className="font-heading text-[1.7rem] sm:text-[2.4rem] md:text-[2.75rem] lg:text-[3.05rem] font-bold text-milk leading-[1.12] tracking-[-0.025em] max-w-[18ch] sm:max-w-none"
               variants={fadeUp}
               initial="hidden"
               animate="visible"
@@ -246,7 +239,7 @@ export default function Hero() {
             </motion.h1>
 
             <motion.p
-              className="mt-4 sm:mt-5 text-base sm:text-lg text-soft-gray leading-relaxed max-w-xl"
+              className="mt-4 sm:mt-5 text-base sm:text-lg text-soft-gray leading-[1.7] max-w-xl"
               variants={fadeUp}
               initial="hidden"
               animate="visible"

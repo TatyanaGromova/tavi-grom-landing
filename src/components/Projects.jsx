@@ -8,7 +8,7 @@ export default function Projects() {
   const { stagger } = useMotionSettings()
 
   return (
-    <section id="projects" className="section-padding bg-graphite-light/30">
+    <section id="projects" className="section-padding section-surface">
       <div className="container-wide">
         <SectionTitle
           title="Проекты"

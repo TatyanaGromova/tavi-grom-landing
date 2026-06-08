@@ -7,7 +7,7 @@ export default function ProjectCard({ title, category, description, image, image
 
   return (
     <motion.article
-      className="group relative glass-panel rounded-2xl overflow-hidden"
+      className="group relative premium-card rounded-2xl overflow-hidden"
       variants={fadeUp}
       whileHover={prefersReducedMotion ? {} : { y: -8 }}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}

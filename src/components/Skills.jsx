@@ -25,7 +25,7 @@ export default function Skills() {
             {skillGroups.map((group) => (
               <motion.div
                 key={group.id}
-                className="glass-panel rounded-2xl p-6 hover:bg-white/8 transition-colors duration-300"
+                className="glass-panel rounded-2xl p-6 hover:bg-bg-elevated/60 transition-colors duration-300"
                 variants={fadeUp}
               >
                 <h3 className="font-heading text-lg font-semibold text-milk mb-4">
@@ -35,7 +35,7 @@ export default function Skills() {
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className="px-3 py-1.5 text-sm text-soft-gray bg-white/5 rounded-lg border border-white/5"
+                      className="px-3 py-1.5 text-sm text-soft-gray bg-bg-elevated/50 rounded-lg border border-white/10"
                     >
                       {item}
                     </li>
@@ -86,7 +86,7 @@ export default function Skills() {
                           {group.items.map((item) => (
                             <li
                               key={item}
-                              className="px-3 py-1.5 text-sm text-soft-gray bg-white/5 rounded-lg border border-white/5"
+                              className="px-3 py-1.5 text-sm text-soft-gray bg-bg-elevated/50 rounded-lg border border-white/10"
                             >
                               {item}
                             </li>

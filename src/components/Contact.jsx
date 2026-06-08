@@ -59,7 +59,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="section-padding bg-graphite-light/30">
+    <section id="contact" className="section-padding section-surface">
       <div className="container-wide max-w-4xl">
         <SectionTitle
           title="Обсудим ваш проект?"
@@ -86,7 +86,7 @@ export default function Contact() {
             href={SOCIAL_LINKS.vk}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 text-center px-6 py-3.5 bg-lavender/20 hover:bg-lavender/30 border border-lavender/30 text-milk font-medium rounded-xl transition-all duration-300"
+            className="btn-primary flex-1 text-center"
           >
             Написать ВКонтакте
           </a>
@@ -94,14 +94,18 @@ export default function Contact() {
             href={SOCIAL_LINKS.telegram}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 text-center px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-milk font-medium rounded-xl transition-all duration-300"
+            className="btn-secondary flex-1 text-center"
           >
             Написать в Telegram
           </a>
           <button
             type="button"
             onClick={() => setShowForm(!showForm)}
-            className="flex-1 px-6 py-3.5 bg-apricot/15 hover:bg-apricot/25 border border-apricot/20 text-milk font-medium rounded-xl transition-all duration-300"
+            className="flex-1 px-6 py-3.5 font-medium rounded-xl transition-all duration-300 border text-milk"
+            style={{
+              background: 'rgba(216, 163, 122, 0.12)',
+              borderColor: 'rgba(216, 163, 122, 0.28)',
+            }}
           >
             Оставить заявку
           </button>
@@ -130,9 +134,7 @@ export default function Contact() {
                     type="text"
                     value={form.name}
                     onChange={handleChange('name')}
-                    className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-milk placeholder:text-soft-gray/50 transition-colors ${
-                      fieldErrors.name ? 'border-red-400/60' : 'border-white/10 focus:border-lavender/40'
-                    }`}
+                    className={`input-field ${fieldErrors.name ? 'border-red-400/60' : ''}`}
                     placeholder="Как к вам обращаться"
                     aria-invalid={!!fieldErrors.name}
                     aria-describedby={fieldErrors.name ? 'name-error' : undefined}
@@ -153,9 +155,7 @@ export default function Contact() {
                     type="text"
                     value={form.contact}
                     onChange={handleChange('contact')}
-                    className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-milk placeholder:text-soft-gray/50 transition-colors ${
-                      fieldErrors.contact ? 'border-red-400/60' : 'border-white/10 focus:border-lavender/40'
-                    }`}
+                    className={`input-field ${fieldErrors.contact ? 'border-red-400/60' : ''}`}
                     placeholder="Telegram, телефон или email"
                     aria-invalid={!!fieldErrors.contact}
                     aria-describedby={fieldErrors.contact ? 'contact-error' : undefined}
@@ -176,9 +176,7 @@ export default function Contact() {
                     type="text"
                     value={form.task}
                     onChange={handleChange('task')}
-                    className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-milk placeholder:text-soft-gray/50 transition-colors ${
-                      fieldErrors.task ? 'border-red-400/60' : 'border-white/10 focus:border-lavender/40'
-                    }`}
+                    className={`input-field ${fieldErrors.task ? 'border-red-400/60' : ''}`}
                     placeholder="Сайт, визуал, игра, приложение..."
                     aria-invalid={!!fieldErrors.task}
                     aria-describedby={fieldErrors.task ? 'task-error' : undefined}
@@ -199,7 +197,7 @@ export default function Contact() {
                     value={form.about}
                     onChange={handleChange('about')}
                     rows={4}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-milk placeholder:text-soft-gray/50 focus:border-lavender/40 transition-colors resize-y"
+                    className="input-field resize-y"
                     placeholder="Расскажите подробнее, если хотите"
                   />
                 </div>
@@ -210,7 +208,7 @@ export default function Contact() {
                       type="checkbox"
                       checked={form.consent}
                       onChange={handleChange('consent')}
-                      className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-lavender focus:ring-lavender/40"
+                      className="mt-1 w-4 h-4 rounded border-white/20 bg-bg-elevated text-lavender focus:ring-lavender/40"
                       aria-invalid={!!fieldErrors.consent}
                     />
                     <span className="text-sm text-soft-gray leading-relaxed group-hover:text-milk/80 transition-colors">
@@ -233,7 +231,7 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full sm:w-auto px-8 py-3.5 bg-lavender/25 hover:bg-lavender/35 border border-lavender/30 text-milk font-medium rounded-xl transition-all duration-300 hover:shadow-[0_4px_24px_rgba(196,181,216,0.2)]"
+                  className="btn-primary w-full sm:w-auto"
                 >
                   Отправить заявку
                 </button>

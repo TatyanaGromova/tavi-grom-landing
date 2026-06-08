@@ -11,7 +11,7 @@ const footerNav = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-graphite-light/20">
+    <footer className="border-t border-white/10 section-surface">
       <div className="container-wide section-padding !py-12 sm:!py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           <div>

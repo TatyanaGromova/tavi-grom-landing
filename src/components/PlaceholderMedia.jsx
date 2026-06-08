@@ -1,10 +1,10 @@
 import { motion, useReducedMotion } from 'framer-motion'
 
 const gradientVariants = [
-  'from-lavender/25 via-[#2a2830] to-apricot/18',
-  'from-apricot/18 via-[#28262e] to-lavender/15',
-  'from-powder/12 via-[#2a2830] to-lavender/18',
-  'from-lavender-soft/18 via-[#26242c] to-apricot-soft/12',
+  'from-lavender/22 via-bg-elevated to-apricot/16',
+  'from-apricot/16 via-bg-elevated to-lavender/14',
+  'from-powder/14 via-bg-elevated to-lavender/16',
+  'from-lavender-soft/16 via-bg-elevated to-apricot-soft/12',
 ]
 
 const icons = {
@@ -76,7 +76,7 @@ export default function PlaceholderMedia({
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 60% 50% at 50% 40%, rgba(196,181,216,0.12), transparent 70%)',
+              'radial-gradient(ellipse 60% 50% at 50% 40%, rgba(184,169,217,0.14), transparent 70%)',
           }}
           aria-hidden="true"
         />
@@ -122,7 +122,7 @@ export default function PlaceholderMedia({
         <div
           className={`flex items-center justify-center rounded-2xl ${
             premium
-              ? 'w-14 h-14 bg-white/5 border border-white/10 text-lavender/50'
+              ? 'w-14 h-14 bg-bg-elevated/60 border border-white/10 text-lavender/60'
               : 'text-lavender/60'
           }`}
         >
@@ -136,7 +136,7 @@ export default function PlaceholderMedia({
       <div
         className={`absolute inset-0 rounded-[inherit] pointer-events-none ${
           premium
-            ? 'border border-lavender/20 shadow-[inset_0_0_40px_rgba(196,181,216,0.06)]'
+            ? 'border border-lavender/25 shadow-[inset_0_0_40px_rgba(184,169,217,0.08)]'
             : 'border border-white/10'
         }`}
         aria-hidden="true"

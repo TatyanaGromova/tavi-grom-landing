@@ -64,7 +64,7 @@ export default function About() {
           {roles.map((role, i) => (
             <motion.div
               key={role}
-              className="glass-panel rounded-xl px-5 py-4 text-sm sm:text-base text-milk/90 hover:bg-white/8 transition-colors duration-300"
+              className="premium-card rounded-xl px-5 py-4 text-sm sm:text-base text-milk hover:border-lavender/15 transition-all duration-300"
               variants={fadeUp}
             >
               <span className="text-lavender/50 mr-2">{String(i + 1).padStart(2, '0')}</span>

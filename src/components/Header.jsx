@@ -58,10 +58,8 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-[#1e1e24]/80 backdrop-blur-xl border-b border-white/[0.06] shadow-lg shadow-black/10'
-          : 'bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled ? 'header-glass' : 'bg-bg/30 backdrop-blur-md border-b border-transparent'
       }`}
     >
       <div className="container-wide flex items-center justify-between h-16 sm:h-[4.5rem] px-5 sm:px-8 lg:px-12">
@@ -82,10 +80,10 @@ export default function Header() {
                 key={item.id}
                 type="button"
                 onClick={() => handleNavClick(item.id)}
-                className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-lg ${
+                className={`relative px-4 py-2 text-[13px] font-medium transition-colors duration-200 rounded-lg tracking-[0.02em] ${
                   isActive
                     ? 'text-milk'
-                    : 'text-soft-gray hover:text-milk hover:bg-white/5'
+                    : 'text-cream-muted hover:text-milk hover:bg-white/[0.04]'
                 }`}
                 aria-current={isActive ? 'true' : undefined}
               >

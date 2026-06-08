@@ -34,7 +34,7 @@ export default function Consent() {
 
           <Link
             to="/"
-            className="inline-block mt-10 px-6 py-3 bg-lavender/20 hover:bg-lavender/30 border border-lavender/30 text-milk font-medium rounded-xl transition-all duration-300"
+            className="btn-primary inline-block mt-10"
           >
             Вернуться на главную
           </Link>

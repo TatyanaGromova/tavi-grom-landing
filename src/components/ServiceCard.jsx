@@ -7,7 +7,7 @@ export default function ServiceCard({ title, description, index = 0 }) {
 
   return (
     <motion.article
-      className={`group relative glass-panel rounded-2xl p-6 sm:p-7 transition-shadow duration-300 hover:shadow-[0_8px_40px_rgba(196,181,216,0.12)] ${
+      className={`group relative premium-card rounded-2xl p-6 sm:p-7 transition-all duration-300 hover:shadow-[0_12px_48px_rgba(184,169,217,0.12)] hover:border-lavender/20 ${
         depth === 1 ? 'lg:translate-y-2' : depth === 2 ? 'lg:-translate-y-1' : ''
       }`}
       variants={fadeUp}
