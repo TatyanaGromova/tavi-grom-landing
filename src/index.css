@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --color-graphite: #1e1e24;
+  --color-graphite-light: #2a2a32;
+  --color-milk: #f5f0eb;
+  --color-warm-gray: #e8e4df;
+  --color-soft-gray: #c8c4c0;
+  --color-lavender: #c4b5d8;
+  --color-lavender-soft: #d8cce8;
+  --color-powder: #e8dff0;
+  --color-apricot: #e8c4a8;
+  --color-apricot-soft: #f0dcc8;
+  --color-silver: rgba(255, 255, 255, 0.12);
+  --font-heading: "Manrope", system-ui, sans-serif;
+  --font-body: "Inter", "Manrope", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-graphite text-milk font-body antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% 0%, rgba(196, 181, 216, 0.08), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(232, 196, 168, 0.06), transparent);
+    min-height: 100vh;
+  }
+
+  ::selection {
+    @apply bg-lavender/30 text-milk;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-lavender;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-milk via-lavender-soft to-apricot-soft bg-clip-text text-transparent;
+  }
+
+  .section-padding {
+    @apply px-5 sm:px-8 lg:px-12 xl:px-16 py-20 sm:py-24 lg:py-28;
+  }
+
+  .container-wide {
+    @apply max-w-7xl mx-auto w-full;
+  }
+}
