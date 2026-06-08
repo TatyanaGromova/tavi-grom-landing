@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import Logo from './Logo'
 import { scrollToSection } from '../utils/motion'
 
 const footerNav = [
@@ -15,7 +16,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           <div>
             <p className="font-heading text-xl font-bold text-milk">
-              ТА<span className="text-lavender">•</span>ВИ Гром
+              <Logo />
             </p>
             <p className="mt-2 text-sm text-soft-gray">
               Креатор нейросетевых и цифровых проектов

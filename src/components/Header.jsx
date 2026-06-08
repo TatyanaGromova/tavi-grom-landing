@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { scrollToSection } from '../utils/motion'
+import Logo from './Logo'
 
 const navItems = [
   { label: 'Обо мне', id: 'about' },
@@ -70,9 +71,7 @@ export default function Header() {
           className="logo-text text-lg sm:text-[1.35rem]"
           aria-label="На главную — ТА•ВИ Гром"
         >
-          <span className="text-milk">ТА</span>
-          <span className="text-lavender">•</span>
-          <span className="text-milk">ВИ Гром</span>
+          <Logo />
         </a>
 
         <nav className="hidden lg:flex items-center gap-0.5" aria-label="Основное меню">

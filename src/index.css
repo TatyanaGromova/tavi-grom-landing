@@ -62,7 +62,19 @@
   }
 
   .accent-word {
-    @apply bg-gradient-to-r from-lavender-soft via-powder to-apricot-soft bg-clip-text text-transparent;
+    background: linear-gradient(135deg, #d8cce8 0%, #e8dff0 45%, #f0dcc8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .author-line {
+    @apply inline-flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm tracking-[0.12em] uppercase font-medium;
+    color: rgba(200, 196, 192, 0.75);
+  }
+
+  .author-dot {
+    @apply w-1 h-1 rounded-full bg-lavender/30 shrink-0;
   }
 
   .section-padding {
@@ -89,8 +101,8 @@
   }
 
   .btn-primary {
-    @apply relative px-7 py-3.5 font-medium rounded-xl transition-all duration-300;
-    background: linear-gradient(135deg, rgba(196, 181, 216, 0.45) 0%, rgba(216, 204, 232, 0.3) 50%, rgba(232, 223, 240, 0.25) 100%);
+    @apply relative px-6 py-3 text-sm sm:text-base font-medium rounded-xl transition-all duration-300;
+    background: linear-gradient(135deg, rgba(196, 181, 216, 0.5) 0%, rgba(232, 223, 240, 0.35) 55%, rgba(240, 220, 200, 0.25) 100%);
     border: 1px solid rgba(196, 181, 216, 0.35);
     color: #f5f0eb;
     box-shadow: 0 4px 24px rgba(196, 181, 216, 0.12);
@@ -103,7 +115,7 @@
   }
 
   .btn-secondary {
-    @apply px-7 py-3.5 bg-transparent font-medium rounded-xl transition-all duration-300;
+    @apply px-6 py-3 text-sm sm:text-base bg-transparent font-medium rounded-xl transition-all duration-300;
     border: 1px solid rgba(255, 255, 255, 0.14);
     color: #f5f0eb;
   }
@@ -137,7 +149,12 @@
   }
 
   .floating-card {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl px-3 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm text-milk/90 font-medium shadow-lg cursor-default;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    @apply bg-white/[0.08] backdrop-blur-xl border border-white/[0.14] rounded-xl px-3.5 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm text-milk font-medium cursor-default;
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(196, 181, 216, 0.08);
+  }
+
+  .floating-card:hover {
+    border-color: rgba(196, 181, 216, 0.25);
+    box-shadow: 0 14px 44px rgba(0, 0, 0, 0.32), 0 0 24px rgba(196, 181, 216, 0.1);
   }
 }
