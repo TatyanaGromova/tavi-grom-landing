@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 const gradientVariants = [
-  'from-lavender/20 via-graphite-light to-apricot/15',
-  'from-apricot/15 via-lavender/10 to-graphite-light',
-  'from-powder/10 via-apricot-soft/10 to-lavender/15',
-  'from-lavender-soft/15 via-graphite-light to-powder/10',
+  'from-lavender/25 via-[#2a2830] to-apricot/18',
+  'from-apricot/18 via-[#28262e] to-lavender/15',
+  'from-powder/12 via-[#2a2830] to-lavender/18',
+  'from-lavender-soft/18 via-[#26242c] to-apricot-soft/12',
 ]
 
 const icons = {
@@ -33,7 +33,10 @@ export default function PlaceholderMedia({
   className = '',
   variant = 0,
   aspectRatio = 'aspect-[4/3]',
+  premium = false,
 }) {
+  const prefersReducedMotion = useReducedMotion()
+
   if (src) {
     if (type === 'video') {
       return (
@@ -67,28 +70,77 @@ export default function PlaceholderMedia({
       aria-label={caption}
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
-        }}
-      />
+
+      {premium && (
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 60% 50% at 50% 40%, rgba(196,181,216,0.12), transparent 70%)',
+          }}
+          aria-hidden="true"
+        />
+      )}
+
+      <div className="absolute inset-0 hero-noise opacity-60" aria-hidden="true" />
+
       <motion.div
-        className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 rounded-full bg-lavender/20 blur-3xl"
-        animate={{ x: [0, 10, 0], y: [0, -8, 0] }}
+        className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 rounded-full bg-lavender/15 blur-3xl"
+        animate={prefersReducedMotion ? {} : { x: [0, 10, 0], y: [0, -8, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        aria-hidden="true"
       />
       <motion.div
-        className="absolute -bottom-1/4 -left-1/4 w-1/3 h-1/3 rounded-full bg-apricot/15 blur-3xl"
-        animate={{ x: [0, -8, 0], y: [0, 6, 0] }}
+        className="absolute -bottom-1/4 -left-1/4 w-1/3 h-1/3 rounded-full bg-apricot/12 blur-3xl"
+        animate={prefersReducedMotion ? {} : { x: [0, -8, 0], y: [0, 6, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        aria-hidden="true"
       />
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 border border-white/10 rounded-[inherit]">
-        <div className="text-lavender/60">{icon}</div>
+
+      {premium && (
+        <>
+          <div
+            className="absolute top-1/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute top-8 left-8 w-2 h-2 rounded-full border border-lavender/20"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute bottom-10 right-10 w-3 h-3 rounded-full border border-apricot/15"
+            aria-hidden="true"
+          />
+        </>
+      )}
+
+      <div
+        className={`absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 ${
+          premium ? 'pt-14' : ''
+        }`}
+      >
+        <div
+          className={`flex items-center justify-center rounded-2xl ${
+            premium
+              ? 'w-14 h-14 bg-white/5 border border-white/10 text-lavender/50'
+              : 'text-lavender/60'
+          }`}
+        >
+          {icon}
+        </div>
         <p className="text-sm sm:text-base text-soft-gray text-center leading-relaxed max-w-[220px]">
           {caption}
         </p>
       </div>
+
+      <div
+        className={`absolute inset-0 rounded-[inherit] pointer-events-none ${
+          premium
+            ? 'border border-lavender/20 shadow-[inset_0_0_40px_rgba(196,181,216,0.06)]'
+            : 'border border-white/10'
+        }`}
+        aria-hidden="true"
+      />
     </div>
   )
 }

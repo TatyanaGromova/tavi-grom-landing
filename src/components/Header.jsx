@@ -11,14 +11,38 @@ const navItems = [
   { label: 'Связаться', id: 'contact' },
 ]
 
+const sectionIds = ['hero', ...navItems.map((item) => item.id)]
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('hero')
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const observers = []
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id)
+      if (!el) return
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id)
+        },
+        { rootMargin: '-40% 0px -50% 0px', threshold: 0 },
+      )
+
+      observer.observe(el)
+      observers.push(observer)
+    })
+
+    return () => observers.forEach((o) => o.disconnect())
   }, [])
 
   useEffect(() => {
@@ -34,30 +58,49 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass-panel shadow-lg shadow-black/10' : 'bg-transparent'
+        scrolled
+          ? 'bg-[#1e1e24]/80 backdrop-blur-xl border-b border-white/[0.06] shadow-lg shadow-black/10'
+          : 'bg-transparent'
       }`}
     >
-      <div className="container-wide flex items-center justify-between h-16 sm:h-20 px-5 sm:px-8 lg:px-12">
+      <div className="container-wide flex items-center justify-between h-16 sm:h-[4.5rem] px-5 sm:px-8 lg:px-12">
         <a
           href="#hero"
           onClick={(e) => { e.preventDefault(); scrollToSection('hero') }}
-          className="font-heading text-lg sm:text-xl font-bold text-milk tracking-tight hover:text-lavender-soft transition-colors"
-          aria-label="На главную"
+          className="logo-text text-lg sm:text-[1.35rem]"
+          aria-label="На главную — ТА•ВИ Гром"
         >
-          ТА<span className="text-lavender mx-0.5">•</span>ВИ Гром
+          <span className="text-milk">ТА</span>
+          <span className="text-lavender">•</span>
+          <span className="text-milk">ВИ Гром</span>
         </a>
 
-        <nav className="hidden lg:flex items-center gap-1" aria-label="Основное меню">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => handleNavClick(item.id)}
-              className="px-4 py-2 text-sm text-soft-gray hover:text-milk transition-colors rounded-lg hover:bg-white/5"
-            >
-              {item.label}
-            </button>
-          ))}
+        <nav className="hidden lg:flex items-center gap-0.5" aria-label="Основное меню">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => handleNavClick(item.id)}
+                className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-lg ${
+                  isActive
+                    ? 'text-milk'
+                    : 'text-soft-gray hover:text-milk hover:bg-white/5'
+                }`}
+                aria-current={isActive ? 'true' : undefined}
+              >
+                {item.label}
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute bottom-0 left-3 right-3 h-px bg-gradient-to-r from-transparent via-lavender/60 to-transparent"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </button>
+            )
+          })}
         </nav>
 
         <button
@@ -106,7 +149,9 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
                   onClick={() => handleNavClick(item.id)}
-                  className="text-2xl font-heading font-medium text-milk hover:text-lavender py-3 px-6 transition-colors"
+                  className={`text-2xl font-heading font-medium py-3 px-6 transition-colors ${
+                    activeSection === item.id ? 'text-lavender-soft' : 'text-milk hover:text-lavender'
+                  }`}
                 >
                   {item.label}
                 </motion.button>
