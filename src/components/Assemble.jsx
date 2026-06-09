@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import SectionTitle from './SectionTitle'
 import AssembleWaves from './AssembleWaves'
+import DecorativeWaveLine from './DecorativeWaveLine'
 import { assembleCards } from '../data/assemble'
 import { useMotionSettings } from '../utils/motion'
 
@@ -57,11 +58,12 @@ export default function Assemble() {
                 whileHover={prefersReducedMotion ? {} : { y: -4 }}
                 transition={{ type: 'spring', stiffness: 380, damping: 24 }}
               >
-                <div className="flex items-start gap-4">
+                <DecorativeWaveLine index={index} prefersReducedMotion={prefersReducedMotion} />
+                <div className="assemble-card__content flex items-start gap-4">
                   <span className="assemble-index" aria-hidden="true">
                     {String(card.id).padStart(2, '0')}
                   </span>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <h3 className="font-heading text-lg sm:text-xl font-semibold text-milk group-hover:text-accent-soft transition-colors duration-300">
                       {card.title}
                     </h3>
