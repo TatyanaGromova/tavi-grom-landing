@@ -2,7 +2,7 @@
 // Если файл ещё не добавлен — resolveMedia вернёт null, и покажется заглушка.
 
 const mediaModules = import.meta.glob(
-  '../assets/**/*.{jpg,jpeg,png,mp4,webp}',
+  '../assets/**/*.{jpg,jpeg,png,mp4,MP4,webp}',
   { eager: true, import: 'default' },
 )
 

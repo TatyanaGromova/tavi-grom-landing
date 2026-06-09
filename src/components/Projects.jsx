@@ -34,6 +34,7 @@ export default function Projects() {
                 image={project.image}
                 imageAlt={project.alt}
                 video={project.video}
+                previewVideo={project.previewVideo}
                 videoGallery={project.videoGallery}
                 objectPosition={project.objectPosition}
                 index={index}

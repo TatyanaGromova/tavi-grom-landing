@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import PlaceholderMedia from './PlaceholderMedia'
+import ProjectPreviewVideo from './ProjectPreviewVideo'
 import VideoPreview from './VideoPreview'
 import VideoCard from './VideoCard'
 import { useMotionSettings } from '../utils/motion'
@@ -11,48 +12,75 @@ export default function ProjectCard({
   image,
   imageAlt,
   video = null,
+  previewVideo = null,
   videoGallery = null,
   objectPosition = 'center',
   index = 0,
 }) {
   const { fadeUp, prefersReducedMotion } = useMotionSettings()
   const hasGallery = videoGallery && videoGallery.length > 0
+  const showMedia = previewVideo || video || image || !hasGallery
+  const enableHoverLift = !prefersReducedMotion && (!hasGallery || previewVideo)
+
+  const renderMedia = () => {
+    if (previewVideo) {
+      return (
+        <ProjectPreviewVideo
+          src={previewVideo}
+          alt={imageAlt}
+          caption="Здесь будет видео проекта"
+          aspectRatio="aspect-[16/10]"
+          className="rounded-t-2xl transition-transform duration-500 group-hover:scale-[1.02]"
+          objectPosition={objectPosition}
+          variant={index}
+        />
+      )
+    }
+
+    if (video) {
+      return (
+        <VideoPreview
+          poster={image}
+          videoSrc={video}
+          alt={imageAlt}
+          caption="Здесь будет видео проекта"
+          aspectRatio="aspect-[16/10]"
+          className="rounded-t-2xl transition-transform duration-500 group-hover:scale-[1.02]"
+          objectPosition={objectPosition}
+        />
+      )
+    }
+
+    return (
+      <PlaceholderMedia
+        src={image}
+        alt={imageAlt}
+        caption="Здесь будет изображение проекта"
+        variant={index}
+        aspectRatio="aspect-[16/10]"
+        className="rounded-t-2xl transition-transform duration-500 group-hover:scale-[1.03]"
+        objectPosition={objectPosition}
+      />
+    )
+  }
 
   return (
     <motion.article
       className={`group relative premium-card rounded-2xl overflow-hidden ${hasGallery ? 'flex flex-col' : ''}`}
       variants={fadeUp}
-      whileHover={prefersReducedMotion || hasGallery ? {} : { y: -8 }}
+      whileHover={enableHoverLift ? { y: -8 } : {}}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
     >
-      {!hasGallery && (
-        <div className="relative overflow-hidden">
-          {video ? (
-            <VideoPreview
-              poster={image}
-              videoSrc={video}
-              alt={imageAlt}
-              caption="Здесь будет видео проекта"
-              aspectRatio="aspect-[16/10]"
-              className="rounded-t-2xl transition-transform duration-500 group-hover:scale-[1.02]"
-              objectPosition={objectPosition}
-            />
-          ) : (
-            <PlaceholderMedia
-              src={image}
-              alt={imageAlt}
-              caption="Здесь будет изображение проекта"
-              variant={index}
-              aspectRatio="aspect-[16/10]"
-              className="rounded-t-2xl transition-transform duration-500 group-hover:scale-[1.03]"
-              objectPosition={objectPosition}
-            />
+      {showMedia && (
+        <div className="relative overflow-hidden shrink-0">
+          {renderMedia()}
+          {!hasGallery && (
+            <div className="absolute inset-0 bg-gradient-to-t from-graphite/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5 pointer-events-none">
+              <p className="text-sm text-milk/90 leading-relaxed line-clamp-3">
+                {description}
+              </p>
+            </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-graphite/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5 pointer-events-none">
-            <p className="text-sm text-milk/90 leading-relaxed line-clamp-3">
-              {description}
-            </p>
-          </div>
         </div>
       )}
 

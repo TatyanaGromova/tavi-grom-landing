@@ -1,10 +1,12 @@
-import { resolveMedia } from './media'
-
 import neuroVideo from '../assets/video/neuro-video.mp4'
+import aiVideoMain from '../assets/video/ai-video-main.mp4'
 import aiVideoDino from '../assets/video/ai-video-dino.mp4'
 import aiVideoMaslenitsa from '../assets/video/ai-video-maslenitsa.mp4'
 import aiVideoPolyglot from '../assets/video/ai-video-polyglot.mp4'
 import aiVideoSatkaChocolate from '../assets/video/ai-video-satka-chocolate.mp4'
+import { resolveMedia } from './media'
+
+const aiVideoMainResolved = aiVideoMain ?? resolveMedia('video/ai-video-main.mp4')
 
 const paths = {
   kotelCover: 'projects/kotel-cover.png',
@@ -114,10 +116,11 @@ export const projects = [
     title: 'AI-клипы и визуальные истории',
     category: 'видео, раскадровка, промпты',
     description:
-      'Визуальные истории от идеи и сценария до кадров, анимации и монтажной логики.',
+      'Собираю короткие визуальные истории: от идеи и атмосферы до кадров, промптов и выразительной подачи.',
     image: null,
     gallery: [],
     video: null,
+    previewVideo: aiVideoMainResolved,
     videoGallery: [
       {
         title: 'Ролик про динозавра',
@@ -145,7 +148,7 @@ export const projects = [
         description: 'Имиджевый ролик с городом, шоколадом и атмосферной подачей.',
       },
     ],
-    alt: 'AI-клипы и визуальные истории',
+    alt: 'Видео-превью проекта AI-клипы и визуальные истории',
     objectPosition: 'center',
   },
 ]
