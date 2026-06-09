@@ -305,12 +305,34 @@
   }
 
   .projects-carousel__viewport {
-    @apply overflow-hidden;
-    margin: 0 -0.25rem;
+    @apply relative overflow-hidden;
+  }
+
+  .projects-carousel__fade {
+    @apply absolute top-0 bottom-0 z-[2] pointer-events-none;
+    width: 2.75rem;
+  }
+
+  .projects-carousel__fade--left {
+    left: 0;
+    background: linear-gradient(90deg, rgba(18, 19, 22, 0.92) 0%, transparent 100%);
+  }
+
+  .projects-carousel__fade--right {
+    right: 0;
+    background: linear-gradient(270deg, rgba(18, 19, 22, 0.92) 0%, transparent 100%);
+  }
+
+  @media (max-width: 1023px) {
+    .projects-carousel__fade {
+      width: 1.5rem;
+      opacity: 0.65;
+    }
   }
 
   .projects-carousel__track {
-    @apply flex gap-4 sm:gap-5 pb-1;
+    @apply flex pb-1;
+    gap: 1.35rem;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
@@ -318,7 +340,21 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: rgba(214, 185, 140, 0.22) transparent;
-    padding: 0.25rem 0.25rem 0.5rem;
+    padding: 0.35rem 0.5rem 0.55rem;
+  }
+
+  @media (min-width: 640px) {
+    .projects-carousel__track {
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .projects-carousel__track {
+      gap: 1.75rem;
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
   }
 
   .projects-carousel__track::-webkit-scrollbar {
@@ -332,6 +368,8 @@
 
   .projects-carousel__slide {
     flex: 0 0 88%;
+    width: 88%;
+    max-width: 22rem;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     min-width: 0;
@@ -339,26 +377,24 @@
 
   @media (min-width: 640px) {
     .projects-carousel__slide {
-      flex-basis: 62%;
+      flex: 0 0 21.25rem;
+      width: 21.25rem;
+      max-width: 21.25rem;
     }
   }
 
   @media (min-width: 1024px) {
     .projects-carousel__slide {
-      flex-basis: 40%;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .projects-carousel__slide {
-      flex-basis: 32%;
+      flex: 0 0 23.75rem;
+      width: 23.75rem;
+      max-width: 26.25rem;
     }
   }
 
   .projects-carousel__arrow {
-    @apply hidden lg:flex absolute top-[42%] -translate-y-1/2 z-10 items-center justify-center rounded-full;
-    width: 2.5rem;
-    height: 2.5rem;
+    @apply hidden lg:flex absolute top-[38%] -translate-y-1/2 z-10 items-center justify-center rounded-full;
+    width: 2rem;
+    height: 2rem;
     color: rgba(244, 239, 232, 0.88);
     background: rgba(34, 33, 38, 0.88);
     border: 1px solid rgba(214, 185, 140, 0.22);
@@ -371,8 +407,8 @@
   }
 
   .projects-carousel__arrow svg {
-    width: 1.1rem;
-    height: 1.1rem;
+    width: 0.95rem;
+    height: 0.95rem;
     transition: transform 0.3s ease;
   }
 
@@ -447,115 +483,153 @@
   }
 
   .project-carousel-card {
-    @apply h-full flex flex-col overflow-hidden rounded-2xl;
+    @apply flex flex-col overflow-hidden rounded-2xl;
+    height: 100%;
+    max-height: 34.5rem;
     background: linear-gradient(155deg, rgba(41, 39, 45, 0.94) 0%, rgba(30, 29, 34, 0.9) 100%);
     border: 1px solid rgba(214, 185, 140, 0.16);
     box-shadow:
-      0 14px 36px rgba(0, 0, 0, 0.28),
+      0 10px 28px rgba(0, 0, 0, 0.24),
       inset 0 1px 0 rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(18px) saturate(1.05);
   }
 
   .project-carousel-card--animated {
     transition:
-      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.5s ease,
-      box-shadow 0.5s ease;
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.45s ease,
+      box-shadow 0.45s ease;
   }
 
   .project-carousel-card--animated:hover,
   .project-carousel-card--animated:focus-within {
-    transform: translateY(-7px);
-    border-color: rgba(214, 185, 140, 0.34);
+    transform: translateY(-5px);
+    border-color: rgba(214, 185, 140, 0.32);
     box-shadow:
-      0 20px 44px rgba(0, 0, 0, 0.34),
-      0 0 26px rgba(214, 185, 140, 0.09),
-      0 0 18px rgba(201, 130, 85, 0.08),
+      0 16px 36px rgba(0, 0, 0, 0.3),
+      0 0 20px rgba(214, 185, 140, 0.08),
+      0 0 14px rgba(201, 130, 85, 0.06),
       inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .project-carousel-card__media {
     @apply relative overflow-hidden shrink-0;
+    height: 15.5rem;
   }
 
-  .project-carousel-card__media-overlay {
-    @apply absolute inset-0 pointer-events-none;
-    background: linear-gradient(
-      to top,
-      rgba(18, 19, 22, 0.88) 0%,
-      rgba(18, 19, 22, 0.22) 42%,
-      transparent 100%
-    );
-    transition: opacity 0.5s ease;
+  @media (min-width: 640px) {
+    .project-carousel-card__media {
+      height: 16.5rem;
+    }
   }
 
-  .project-carousel-card__media-inner {
-    @apply w-full;
-    transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
-  }
+  @media (min-width: 1024px) {
+    .project-carousel-card {
+      min-height: 32.5rem;
+      max-height: 36.25rem;
+    }
 
-  .project-carousel-card__media-video video {
-    transition: filter 0.65s ease, transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .project-carousel-card--animated:hover .project-carousel-card__media-inner,
-  .project-carousel-card--animated:focus-within .project-carousel-card__media-inner {
-    transform: scale(1.04);
-  }
-
-  .project-carousel-card--animated:hover .project-carousel-card__media-video video,
-  .project-carousel-card--animated:focus-within .project-carousel-card__media-video video {
-    filter: brightness(1.06) contrast(1.03);
+    .project-carousel-card__media {
+      height: 18.75rem;
+    }
   }
 
   .project-carousel-card__body {
-    @apply flex flex-col flex-1 p-4 sm:p-5;
+    @apply flex flex-col flex-1;
+    padding: 0.9rem 1rem 1rem;
+    min-height: 0;
   }
 
-  .project-carousel-card__tags {
-    @apply flex flex-wrap gap-1.5;
+  @media (min-width: 640px) {
+    .project-carousel-card__body {
+      padding: 1rem 1.1rem 1.1rem;
+    }
   }
 
   .project-carousel-card__tag {
-    @apply text-[10px] sm:text-[11px] px-2 py-0.5 rounded-md tracking-wide;
-    color: rgba(214, 185, 140, 0.78);
+    @apply inline-flex w-fit text-[10px] px-2 py-0.5 rounded-md tracking-wide;
+    color: rgba(214, 185, 140, 0.75);
     background: rgba(140, 38, 52, 0.08);
     border: 1px solid rgba(214, 185, 140, 0.14);
   }
 
   .project-carousel-card__title {
-    @apply font-heading text-base sm:text-lg font-semibold text-milk mt-2 leading-snug;
+    @apply font-heading text-[0.98rem] sm:text-base font-semibold text-milk mt-2 leading-snug line-clamp-2;
   }
 
   .project-carousel-card__desc {
-    @apply text-xs sm:text-sm text-soft-gray mt-2 leading-relaxed line-clamp-3 flex-1;
+    @apply text-xs text-soft-gray mt-2 leading-relaxed line-clamp-2 flex-1;
   }
 
   .project-carousel-card__cta {
-    @apply inline-flex items-center gap-2 mt-4 text-sm w-fit rounded-full px-0.5;
-    color: rgba(214, 185, 140, 0.88);
+    @apply inline-flex items-center mt-3.5 text-xs w-fit rounded-full;
+    padding: 0.38rem 0.85rem;
+    color: rgba(244, 239, 232, 0.9);
+    background: rgba(28, 27, 32, 0.55);
+    border: 1px solid rgba(214, 185, 140, 0.22);
     transition:
-      color 0.35s ease,
-      text-shadow 0.35s ease,
-      box-shadow 0.35s ease;
+      color 0.3s ease,
+      border-color 0.3s ease,
+      background 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .project-carousel-card__cta:hover,
   .project-carousel-card__cta:focus-visible {
     color: var(--accent-soft);
-    text-shadow: 0 0 14px rgba(214, 185, 140, 0.22);
+    border-color: rgba(214, 185, 140, 0.42);
+    background: rgba(38, 36, 42, 0.88);
+    box-shadow: 0 0 16px rgba(214, 185, 140, 0.1);
   }
 
-  .project-carousel-card--animated:focus-within .project-carousel-card__cta {
-    color: var(--accent-soft);
+  .project-media {
+    @apply relative w-full h-full overflow-hidden;
   }
 
-  .project-carousel-card__cta-arrow {
-    transition: transform 0.25s ease;
+  .project-media__backdrop {
+    @apply absolute inset-0;
+    background:
+      radial-gradient(ellipse 80% 70% at 50% 40%, rgba(214, 185, 140, 0.06), transparent 70%),
+      linear-gradient(160deg, rgba(30, 29, 34, 0.98), rgba(22, 21, 25, 0.98));
   }
 
-  .project-carousel-card__cta:hover .project-carousel-card__cta-arrow {
-    transform: translateX(3px);
+  .project-media__asset {
+    @apply relative z-[1] w-full h-full;
+    transition: transform 0.68s cubic-bezier(0.22, 1, 0.36, 1), filter 0.55s ease;
+  }
+
+  .project-media__placeholder {
+    @apply w-full h-full;
+  }
+
+  .project-media--card .project-media__asset {
+    transform-origin: center center;
+  }
+
+  .project-carousel-card--animated:hover .project-media--card .project-media__asset,
+  .project-carousel-card--animated:focus-within .project-media--card .project-media__asset {
+    transform: scale(1.03);
+  }
+
+  .project-carousel-card--animated:hover .project-media--card video,
+  .project-carousel-card--animated:focus-within .project-media--card video {
+    filter: brightness(1.05) contrast(1.02);
+  }
+
+  .project-media--detail {
+    height: 16.5rem;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(244, 239, 232, 0.08);
+  }
+
+  @media (min-width: 640px) {
+    .project-media--detail {
+      height: 18rem;
+    }
+  }
+
+  .project-media--thumb {
+    height: 6.75rem;
   }
 
   .project-detail-root {
@@ -570,91 +644,97 @@
 
   .project-detail-panel {
     @apply relative z-10 flex flex-col w-full overflow-hidden;
-    max-height: 92vh;
-    background: linear-gradient(165deg, rgba(36, 34, 40, 0.98), rgba(24, 23, 27, 0.98));
+    max-height: 94vh;
+    border-radius: 1.1rem 1.1rem 0 0;
+    background: linear-gradient(168deg, rgba(38, 36, 42, 0.99), rgba(24, 23, 27, 0.99));
     border-top: 1px solid rgba(214, 185, 140, 0.22);
     box-shadow:
-      0 -12px 40px rgba(0, 0, 0, 0.34),
-      0 0 30px rgba(140, 38, 52, 0.06);
+      0 -14px 44px rgba(0, 0, 0, 0.36),
+      0 0 28px rgba(140, 38, 52, 0.05);
   }
 
   @media (min-width: 1024px) {
     .project-detail-panel {
       max-height: none;
       height: 100%;
-      width: min(480px, 42vw);
+      width: clamp(32.5rem, 42vw, 42.5rem);
+      border-radius: 0;
       border-top: none;
       border-left: 1px solid rgba(214, 185, 140, 0.22);
       box-shadow:
-        -16px 0 48px rgba(0, 0, 0, 0.36),
-        0 0 30px rgba(201, 130, 85, 0.05);
+        -18px 0 52px rgba(0, 0, 0, 0.38),
+        0 0 32px rgba(201, 130, 85, 0.05);
     }
   }
 
   .project-detail-panel__header {
-    @apply flex items-start justify-between gap-4 shrink-0;
-    padding: 1.1rem 1.1rem 0.85rem;
+    @apply flex items-start justify-between gap-3 shrink-0;
+    padding: 1rem 1rem 0.9rem;
     border-bottom: 1px solid rgba(244, 239, 232, 0.08);
   }
 
   @media (min-width: 640px) {
     .project-detail-panel__header {
-      padding: 1.25rem 1.35rem 1rem;
+      padding: 1.15rem 1.25rem 1rem;
     }
   }
 
-  .project-detail-panel__tags {
-    @apply flex flex-wrap gap-1.5 mt-2;
+  .project-detail-panel__head-main {
+    @apply min-w-0 flex-1;
   }
 
-  .project-detail-panel__tag {
-    @apply text-[10px] px-2 py-0.5 rounded-md tracking-wide;
-    color: rgba(214, 185, 140, 0.75);
-    background: rgba(140, 38, 52, 0.08);
-    border: 1px solid rgba(214, 185, 140, 0.14);
+  .project-detail-panel__category {
+    @apply mt-1.5 text-xs text-soft-gray leading-relaxed;
   }
 
   .project-detail-panel__title {
-    @apply font-heading text-lg sm:text-xl font-semibold text-milk leading-snug;
+    @apply font-heading text-lg sm:text-[1.2rem] font-semibold text-milk leading-snug;
   }
 
   .project-detail-panel__close {
-    @apply shrink-0 text-xs sm:text-sm px-3 py-1.5 rounded-full transition-all duration-300;
+    @apply shrink-0 flex items-center justify-center rounded-full transition-all duration-300;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.35rem;
+    line-height: 1;
     color: rgba(244, 239, 232, 0.88);
     background: rgba(34, 33, 38, 0.9);
     border: 1px solid rgba(214, 185, 140, 0.22);
   }
 
-  .project-detail-panel__close:hover {
+  .project-detail-panel__close:hover,
+  .project-detail-panel__close:focus-visible {
     border-color: rgba(214, 185, 140, 0.38);
     background: rgba(41, 39, 45, 0.95);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(214, 185, 140, 0.2);
   }
 
   .project-detail-panel__scroll {
     @apply overflow-y-auto flex-1;
-    padding: 1rem 1.1rem 1.35rem;
+    padding: 0.95rem 1rem 1.25rem;
   }
 
   @media (min-width: 640px) {
     .project-detail-panel__scroll {
-      padding: 1.1rem 1.35rem 1.5rem;
+      padding: 1rem 1.25rem 1.4rem;
     }
   }
 
   .project-detail-panel__hero {
-    @apply mb-4;
+    @apply mb-3.5;
   }
 
   .project-detail-panel__description {
-    @apply text-sm sm:text-base text-soft-gray leading-relaxed;
+    @apply text-sm text-soft-gray leading-relaxed;
   }
 
   .project-detail-panel__blocks {
-    @apply grid gap-3 mt-5;
+    @apply grid gap-2.5 mt-4;
   }
 
   .project-detail-panel__block {
-    @apply rounded-xl p-4;
+    @apply rounded-xl p-3.5;
     background: rgba(34, 33, 38, 0.72);
     border: 1px solid rgba(244, 239, 232, 0.08);
   }
@@ -669,56 +749,85 @@
   }
 
   .project-detail-panel__gallery {
-    @apply mt-6;
+    @apply mt-5;
   }
 
   .project-detail-panel__section-label {
-    @apply text-xs tracking-[0.12em] uppercase mb-3;
+    @apply text-[11px] tracking-[0.12em] uppercase mb-2.5;
     color: rgba(214, 185, 140, 0.55);
   }
 
   .project-detail-panel__gallery-grid {
-    @apply grid grid-cols-2 gap-3;
+    @apply grid grid-cols-2 gap-2.5;
   }
 
   .project-detail-panel__gallery-item {
-    @apply overflow-hidden rounded-xl aspect-[4/3];
+    @apply overflow-hidden rounded-lg;
     border: 1px solid rgba(244, 239, 232, 0.08);
     background: rgba(34, 33, 38, 0.6);
-    transition:
-      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.4s ease,
-      box-shadow 0.4s ease;
-  }
-
-  .project-detail-panel__gallery-item img {
-    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: border-color 0.35s ease, box-shadow 0.35s ease;
   }
 
   .project-detail-panel__gallery-item:hover,
   .project-detail-panel__gallery-item:focus-within {
-    border-color: rgba(214, 185, 140, 0.22);
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+    border-color: rgba(214, 185, 140, 0.2);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
   }
 
-  .project-detail-panel__gallery-item:hover img,
-  .project-detail-panel__gallery-item:focus-within img {
-    transform: scale(1.04);
+  .project-detail-panel__gallery-item--contain {
+    background: rgba(28, 27, 32, 0.95);
   }
 
   .project-detail-panel__video-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 gap-3;
+    @apply grid grid-cols-1 gap-2.5;
+  }
+
+  .project-detail-video-thumb {
+    @apply overflow-hidden rounded-lg;
+    border: 1px solid rgba(244, 239, 232, 0.08);
+    background: rgba(34, 33, 38, 0.72);
+    transition: border-color 0.35s ease;
+  }
+
+  .project-detail-video-thumb:hover,
+  .project-detail-video-thumb:focus-within {
+    border-color: rgba(214, 185, 140, 0.22);
+  }
+
+  .project-detail-video-thumb__media {
+    @apply relative overflow-hidden;
+    height: 7.5rem;
+    background: rgba(22, 21, 25, 0.95);
+  }
+
+  .project-detail-video-thumb__media--contain .project-detail-video-thumb__video {
+    object-fit: contain;
+  }
+
+  .project-detail-video-thumb__video {
+    @apply w-full h-full;
+    object-fit: cover;
+  }
+
+  .project-detail-video-thumb__meta {
+    padding: 0.65rem 0.75rem 0.75rem;
+  }
+
+  .project-detail-video-thumb__title {
+    @apply text-xs font-semibold text-milk leading-snug;
+  }
+
+  .project-detail-video-thumb__desc {
+    @apply text-[11px] text-soft-gray mt-1 leading-relaxed line-clamp-2;
   }
 
   @media (prefers-reduced-motion: reduce) {
     .project-carousel-card--animated,
-    .project-carousel-card__media-inner,
-    .project-carousel-card__media-video video,
+    .project-media__asset,
     .projects-carousel__arrow,
     .projects-carousel__dot,
     .projects-carousel__progress-fill,
-    .project-detail-panel__gallery-item,
-    .project-detail-panel__gallery-item img {
+    .project-detail-panel__gallery-item {
       transition: none !important;
       transform: none !important;
     }

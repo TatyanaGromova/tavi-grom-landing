@@ -152,6 +152,8 @@ export default function Projects() {
             </motion.button>
 
             <div className="projects-carousel__viewport">
+              <div className="projects-carousel__fade projects-carousel__fade--left" aria-hidden="true" />
+              <div className="projects-carousel__fade projects-carousel__fade--right" aria-hidden="true" />
               <motion.div
                 ref={trackRef}
                 className="projects-carousel__track"

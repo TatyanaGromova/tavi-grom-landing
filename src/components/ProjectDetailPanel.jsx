@@ -1,8 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import PlaceholderMedia from './PlaceholderMedia'
-import ProjectPreviewVideo from './ProjectPreviewVideo'
-import VideoCard from './VideoCard'
+import ProjectDetailVideoThumb from './ProjectDetailVideoThumb'
+import ProjectMedia from './ProjectMedia'
 import { fadeUpPremium, premiumEase, useMotionSettings } from '../utils/motion'
 
 function useIsDesktop() {
@@ -25,7 +24,7 @@ const detailBlocks = [
   { key: 'result', title: 'Результат' },
 ]
 
-const contentItem = (prefersReducedMotion, y = 12) =>
+const contentItem = (prefersReducedMotion, y = 10) =>
   prefersReducedMotion
     ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
     : {
@@ -33,7 +32,7 @@ const contentItem = (prefersReducedMotion, y = 12) =>
         visible: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.55, ease: premiumEase },
+          transition: { duration: 0.5, ease: premiumEase },
         },
       }
 
@@ -41,60 +40,13 @@ const galleryItem = (prefersReducedMotion) =>
   prefersReducedMotion
     ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
     : {
-        hidden: { opacity: 0, y: 10, scale: 0.98 },
+        hidden: { opacity: 0, y: 8 },
         visible: {
           opacity: 1,
           y: 0,
-          scale: 1,
-          transition: { duration: 0.5, ease: premiumEase },
+          transition: { duration: 0.45, ease: premiumEase },
         },
       }
-
-function ProjectHeroMedia({ project }) {
-  if (project.previewVideo) {
-    return (
-      <ProjectPreviewVideo
-        src={project.previewVideo}
-        fallbackSrc={project.previewVideoFallback}
-        alt={project.alt}
-        aspectRatio="aspect-[16/10]"
-        className="rounded-xl overflow-hidden"
-        objectPosition={project.objectPosition}
-      />
-    )
-  }
-
-  if (project.video) {
-    return (
-      <div className="relative aspect-[16/10] rounded-xl overflow-hidden">
-        <video
-          src={project.video}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: project.objectPosition }}
-          aria-label={project.alt}
-        />
-      </div>
-    )
-  }
-
-  return (
-    <PlaceholderMedia
-      src={project.image}
-      alt={project.alt}
-      caption="Здесь будет изображение проекта"
-      aspectRatio="aspect-[16/10]"
-      className="rounded-xl overflow-hidden"
-      objectPosition={project.objectPosition}
-      premium
-      eager
-    />
-  )
-}
 
 export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
   const titleId = useId()
@@ -107,7 +59,7 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
     if (!isOpen) return undefined
 
     document.body.style.overflow = 'hidden'
-    const timer = window.setTimeout(() => closeRef.current?.focus(), prefersReducedMotion ? 0 : 120)
+    const timer = window.setTimeout(() => closeRef.current?.focus(), prefersReducedMotion ? 0 : 100)
 
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') onClose()
@@ -122,22 +74,22 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
     }
   }, [isOpen, onClose, triggerRef, prefersReducedMotion])
 
-  const panelTransition = { duration: prefersReducedMotion ? 0.01 : 0.36, ease: premiumEase }
-  const backdropTransition = { duration: prefersReducedMotion ? 0.01 : 0.32, ease: premiumEase }
+  const panelTransition = { duration: prefersReducedMotion ? 0.01 : 0.34, ease: premiumEase }
+  const backdropTransition = { duration: prefersReducedMotion ? 0.01 : 0.28, ease: premiumEase }
 
   const panelMotion = prefersReducedMotion
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }
     : isDesktop
       ? {
-          initial: { x: '100%', opacity: 0.55 },
+          initial: { x: '100%', opacity: 0.5 },
           animate: { x: 0, opacity: 1 },
-          exit: { x: '100%', opacity: 0.55 },
+          exit: { x: '100%', opacity: 0.5 },
           transition: panelTransition,
         }
       : {
-          initial: { y: '100%', opacity: 0.7, scale: 0.96 },
-          animate: { y: 0, opacity: 1, scale: 1 },
-          exit: { y: '100%', opacity: 0.7, scale: 0.96 },
+          initial: { y: '100%', opacity: 0.75 },
+          animate: { y: 0, opacity: 1 },
+          exit: { y: '100%', opacity: 0.75 },
           transition: panelTransition,
         }
 
@@ -146,7 +98,7 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
     : {
         hidden: {},
         visible: {
-          transition: { staggerChildren: 0.08, delayChildren: 0.14 },
+          transition: { staggerChildren: 0.07, delayChildren: 0.12 },
         },
       }
 
@@ -155,7 +107,7 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
     : {
         hidden: {},
         visible: {
-          transition: { staggerChildren: 0.07, delayChildren: 0.04 },
+          transition: { staggerChildren: 0.06, delayChildren: 0.03 },
         },
       }
 
@@ -164,7 +116,7 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
     : {
         hidden: {},
         visible: {
-          transition: { staggerChildren: 0.06, delayChildren: 0.06 },
+          transition: { staggerChildren: 0.05, delayChildren: 0.05 },
         },
       }
 
@@ -191,10 +143,10 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
             className="project-detail-panel"
             {...panelMotion}
           >
-            <div className="project-detail-panel__header">
+            <header className="project-detail-panel__header">
               <motion.div
                 key={`${project.id}-header`}
-                className="min-w-0 flex-1"
+                className="project-detail-panel__head-main"
                 initial="hidden"
                 animate="visible"
                 variants={contentStagger}
@@ -202,22 +154,15 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
                 <motion.h2
                   id={titleId}
                   className="project-detail-panel__title"
-                  variants={contentItem(prefersReducedMotion, 10)}
+                  variants={contentItem(prefersReducedMotion, 8)}
                 >
                   {project.title}
                 </motion.h2>
 
                 {project.category && (
-                  <motion.div
-                    className="project-detail-panel__tags"
-                    variants={contentItem(prefersReducedMotion, 8)}
-                  >
-                    {project.category.split(',').map((tag) => (
-                      <span key={tag.trim()} className="project-detail-panel__tag">
-                        {tag.trim()}
-                      </span>
-                    ))}
-                  </motion.div>
+                  <motion.p className="project-detail-panel__category" variants={contentItem(prefersReducedMotion, 6)}>
+                    {project.category}
+                  </motion.p>
                 )}
               </motion.div>
 
@@ -226,10 +171,11 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
                 type="button"
                 className="project-detail-panel__close"
                 onClick={onClose}
+                aria-label="Закрыть"
               >
-                Закрыть
+                <span aria-hidden="true">×</span>
               </button>
-            </div>
+            </header>
 
             <div className="project-detail-panel__scroll">
               <motion.div
@@ -239,7 +185,13 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
                 variants={contentStagger}
               >
                 <motion.div className="project-detail-panel__hero" variants={contentItem(prefersReducedMotion)}>
-                  <ProjectHeroMedia project={project} />
+                  <ProjectMedia
+                    project={project}
+                    variant="detail"
+                    type="auto"
+                    eager
+                    fallbackVideo={project.previewVideoFallback}
+                  />
                 </motion.div>
 
                 <motion.p className="project-detail-panel__description" variants={contentItem(prefersReducedMotion)}>
@@ -252,7 +204,7 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
                       <motion.div
                         key={block.key}
                         className="project-detail-panel__block"
-                        variants={contentItem(prefersReducedMotion, 10)}
+                        variants={contentItem(prefersReducedMotion, 8)}
                       >
                         <h3 className="project-detail-panel__block-title">{block.title}</h3>
                         <p className="project-detail-panel__block-text">{project[block.key]}</p>
@@ -270,14 +222,17 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
                       {project.gallery.map((item) => (
                         <motion.figure
                           key={item.src}
-                          className="project-detail-panel__gallery-item"
+                          className={`project-detail-panel__gallery-item${item.mediaFit === 'contain' ? ' project-detail-panel__gallery-item--contain' : ''}`}
                           variants={galleryItem(prefersReducedMotion)}
                         >
-                          <img
+                          <ProjectMedia
+                            project={project}
+                            variant="thumb"
                             src={item.src}
                             alt={item.alt}
-                            loading="lazy"
-                            className="w-full h-full object-cover"
+                            mediaFit={item.mediaFit}
+                            mediaPosition={item.mediaPosition}
+                            type="image"
                           />
                         </motion.figure>
                       ))}
@@ -293,10 +248,12 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
                     <div className="project-detail-panel__video-grid">
                       {project.videoGallery.map((item) => (
                         <motion.div key={item.title} variants={galleryItem(prefersReducedMotion)}>
-                          <VideoCard
+                          <ProjectDetailVideoThumb
                             title={item.title}
                             src={item.src}
                             description={item.description}
+                            mediaFit={item.mediaFit}
+                            mediaPosition={item.mediaPosition}
                           />
                         </motion.div>
                       ))}
