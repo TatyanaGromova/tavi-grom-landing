@@ -65,7 +65,7 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="container-wide w-full px-5 sm:px-8 lg:px-12 xl:px-16 pt-20 sm:pt-24 pb-12 sm:pb-14 relative z-10">
+      <div className="container-wide hero-inner w-full px-5 sm:px-8 lg:px-12 xl:px-16 pt-20 sm:pt-24 relative z-10">
         <div className="grid md:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] gap-8 md:gap-10 lg:gap-14 xl:gap-16 items-center">
           <motion.div
             className="relative max-w-xl md:max-w-[30rem] lg:max-w-[32rem]"
