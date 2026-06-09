@@ -3,7 +3,8 @@ import { useRef } from 'react'
 import HeroMedia from './HeroMedia'
 import HeroMediaInterior from './HeroMediaInterior'
 import Logo from './Logo'
-import { heroVideo, portraits } from '../data/portraits'
+import heroLoop from '../assets/video/hero-loop.mp4'
+import { portraits } from '../data/portraits'
 import { scrollToSection, useMotionSettings } from '../utils/motion'
 
 const floatingCards = [
@@ -84,7 +85,7 @@ function HeroVisualComposition({ prefersReducedMotion }) {
 
             <div className="relative">
               <HeroMedia
-                videoSrc={heroVideo}
+                videoSrc={heroLoop}
                 imageSrc={portraits.main}
                 alt="Портрет Татьяны Громовой"
                 caption="Здесь будет портрет или видео"
@@ -132,7 +133,7 @@ function HeroVisualComposition({ prefersReducedMotion }) {
           </div>
           <div className="relative">
             <HeroMedia
-              videoSrc={heroVideo}
+              videoSrc={heroLoop}
               imageSrc={portraits.main}
               alt="Портрет Татьяны Громовой"
               caption="Здесь будет портрет или видео"

@@ -23,17 +23,22 @@ export default function Projects() {
           transition={{ staggerChildren: stagger }}
         >
           {projects.map((project, index) => (
-            <ProjectCard
+            <div
               key={project.id}
-              title={project.title}
-              category={project.category}
-              description={project.description}
-              image={project.image}
-              imageAlt={project.alt}
-              video={project.video}
-              objectPosition={project.objectPosition}
-              index={index}
-            />
+              className={project.videoGallery?.length ? 'sm:col-span-2 lg:col-span-3' : ''}
+            >
+              <ProjectCard
+                title={project.title}
+                category={project.category}
+                description={project.description}
+                image={project.image}
+                imageAlt={project.alt}
+                video={project.video}
+                videoGallery={project.videoGallery}
+                objectPosition={project.objectPosition}
+                index={index}
+              />
+            </div>
           ))}
         </motion.div>
       </div>
