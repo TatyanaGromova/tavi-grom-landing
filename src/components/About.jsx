@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import PlaceholderMedia from './PlaceholderMedia'
 import AboutGraph from './AboutGraph'
 import { portraits } from '../data/portraits'
-import { useMotionSettings } from '../utils/motion'
+import { sectionViewport, useMotionSettings } from '../utils/motion'
 
 export default function About() {
   const { fadeUp } = useMotionSettings()
@@ -15,7 +15,7 @@ export default function About() {
             className="about-head"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
+            viewport={sectionViewport}
             variants={fadeUp}
           >
             <h2 className="about-title font-heading text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-milk tracking-[-0.03em] leading-[1.12]">
@@ -37,7 +37,7 @@ export default function About() {
             className="about-photo"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
+            viewport={sectionViewport}
             variants={fadeUp}
             transition={{ delay: 0.06 }}
           >

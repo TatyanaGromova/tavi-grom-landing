@@ -204,7 +204,7 @@ function AboutBadge({ label, index, animate, prefersReducedMotion }) {
 
 export default function AboutGraph() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-60px' })
+  const isInView = useInView(ref, { once: true, amount: 0.25 })
   const isDesktop = useIsDesktop()
   const { prefersReducedMotion } = useMotionSettings()
   const animate = isInView ? 'visible' : 'hidden'

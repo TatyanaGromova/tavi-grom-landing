@@ -121,6 +121,180 @@
     box-shadow: var(--shadow-card), var(--inset-shine), 0 0 0 1px rgba(214, 185, 140, 0.04);
   }
 
+  .service-primary-grid {
+    @apply grid grid-cols-1 gap-4 sm:gap-5;
+  }
+
+  @media (min-width: 768px) {
+    .service-primary-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.35rem 1.5rem;
+    }
+  }
+
+  .service-primary-card {
+    @apply relative overflow-hidden rounded-2xl;
+    padding: 1.35rem 1.35rem 1.35rem 0;
+    background: linear-gradient(155deg, rgba(41, 39, 45, 0.94) 0%, rgba(34, 33, 38, 0.88) 100%);
+    border: 1px solid rgba(214, 185, 140, 0.16);
+    box-shadow: var(--shadow-soft), var(--inset-shine);
+    transition: border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+  }
+
+  @media (min-width: 1024px) {
+    .service-primary-card--offset-a {
+      margin-top: -0.45rem;
+    }
+
+    .service-primary-card--offset-b {
+      margin-top: 0.85rem;
+    }
+  }
+
+  .service-primary-card:hover {
+    border-color: rgba(214, 185, 140, 0.32);
+    background: linear-gradient(155deg, rgba(46, 44, 50, 0.96) 0%, rgba(38, 37, 42, 0.9) 100%);
+    box-shadow:
+      0 14px 42px rgba(0, 0, 0, 0.28),
+      0 0 28px rgba(214, 185, 140, 0.08),
+      0 0 18px rgba(168, 52, 68, 0.04),
+      var(--inset-shine);
+  }
+
+  .service-accent-line {
+    @apply absolute top-1/2 -translate-y-1/2 pointer-events-none;
+    left: 1.15rem;
+    width: 10px;
+    height: 58%;
+    min-height: 3.5rem;
+    max-height: 5.5rem;
+  }
+
+  .service-accent-line__path {
+    filter: drop-shadow(0 0 2px rgba(140, 38, 52, 0.16));
+  }
+
+  .service-primary-card:hover .service-accent-line__path {
+    filter: drop-shadow(0 0 3px rgba(168, 52, 68, 0.24));
+  }
+
+  .service-primary-card__body {
+    @apply relative z-[1];
+    padding-left: 2.65rem;
+  }
+
+  .service-primary-card__index {
+    @apply block text-xs font-semibold tracking-[0.14em] mb-2.5 transition-colors duration-300;
+    color: rgba(214, 185, 140, 0.42);
+  }
+
+  .service-primary-card:hover .service-primary-card__index {
+    color: rgba(168, 52, 68, 0.75);
+  }
+
+  .service-primary-card__title {
+    @apply font-heading text-lg sm:text-xl font-semibold text-milk leading-snug mb-2;
+  }
+
+  .service-primary-card__desc {
+    @apply text-sm sm:text-[0.94rem] text-soft-gray leading-relaxed;
+  }
+
+  .service-extra {
+    @apply mt-8 sm:mt-10 lg:mt-12;
+  }
+
+  .service-extra__label {
+    @apply text-xs sm:text-sm tracking-[0.12em] uppercase mb-4;
+    color: rgba(214, 185, 140, 0.55);
+  }
+
+  .service-extra__list {
+    @apply flex flex-col items-start gap-2 sm:gap-2.5 m-0 p-0 list-none;
+    max-width: 100%;
+  }
+
+  .service-extra__item {
+    @apply max-w-full;
+    width: fit-content;
+  }
+
+  .service-extra__item--open {
+    width: min(100%, 22rem);
+    border-radius: 0.9rem;
+    background: linear-gradient(158deg, rgba(46, 43, 50, 0.96), rgba(36, 34, 40, 0.94));
+    border: 1px solid rgba(214, 185, 140, 0.26);
+    box-shadow:
+      0 8px 22px rgba(0, 0, 0, 0.24),
+      0 0 18px rgba(140, 38, 52, 0.07),
+      0 0 14px rgba(201, 130, 85, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .service-extra__trigger {
+    @apply inline-flex items-center justify-between gap-3 cursor-pointer transition-all duration-300 text-left;
+    padding: 0.48rem 0.9rem;
+    font-size: 0.72rem;
+    line-height: 1.2;
+    color: var(--text-primary);
+    background: linear-gradient(145deg, rgba(38, 36, 42, 0.92), rgba(28, 27, 32, 0.88));
+    border: 1px solid rgba(214, 185, 140, 0.18);
+    border-radius: 9999px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    max-width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .service-extra__trigger {
+      font-size: 0.76rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  .service-extra__trigger:hover {
+    border-color: rgba(214, 185, 140, 0.34);
+    box-shadow:
+      0 8px 22px rgba(0, 0, 0, 0.24),
+      0 0 16px rgba(214, 185, 140, 0.07);
+  }
+
+  .service-extra__trigger--open {
+    @apply w-full rounded-none border-0 bg-transparent;
+    box-shadow: none;
+    padding: 0.55rem 0.95rem 0.35rem;
+  }
+
+  .service-extra__trigger--open:hover {
+    box-shadow: none;
+    border-color: transparent;
+  }
+
+  .service-extra__trigger-label {
+    @apply min-w-0;
+  }
+
+  .service-extra__indicator {
+    @apply shrink-0 text-center font-light leading-none;
+    width: 0.7rem;
+    font-size: 0.82rem;
+    color: rgba(214, 185, 140, 0.62);
+    transition: color 0.25s ease, transform 0.25s ease;
+  }
+
+  .service-extra__item--open .service-extra__indicator {
+    color: rgba(214, 185, 140, 0.82);
+  }
+
+  .service-extra__panel {
+    @apply overflow-hidden;
+  }
+
+  .service-extra__desc {
+    @apply text-xs sm:text-sm leading-relaxed;
+    padding: 0 0.95rem 0.65rem;
+    color: rgba(214, 185, 140, 0.72);
+  }
+
   .premium-frame {
     box-shadow:
       0 0 0 1px var(--border-accent),

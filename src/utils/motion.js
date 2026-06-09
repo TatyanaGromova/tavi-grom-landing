@@ -1,5 +1,11 @@
 import { useReducedMotion } from 'framer-motion'
 
+/** Срабатывает, когда ~25% элемента в зоне видимости — надёжнее на мобильных, чем отрицательный margin */
+export const sectionViewport = { once: true, amount: 0.25 }
+
+/** Для отдельных карточек в колонке — чуть позже, чтобы анимация была заметна при скролле */
+export const itemViewport = { once: true, amount: 0.35 }
+
 export function useMotionSettings() {
   const prefersReducedMotion = useReducedMotion()
 

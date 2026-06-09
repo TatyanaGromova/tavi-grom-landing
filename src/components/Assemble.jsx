@@ -3,7 +3,7 @@ import SectionTitle from './SectionTitle'
 import AssembleWaves from './AssembleWaves'
 import DecorativeWaveLine from './DecorativeWaveLine'
 import { assembleCards } from '../data/assemble'
-import { useMotionSettings } from '../utils/motion'
+import { itemViewport, sectionViewport, useMotionSettings } from '../utils/motion'
 
 const assembleCardVariants = (prefersReducedMotion) =>
   prefersReducedMotion
@@ -35,7 +35,7 @@ const assembleCardContentVariants = (prefersReducedMotion) =>
       }
 
 export default function Assemble() {
-  const { fadeUp, stagger, prefersReducedMotion } = useMotionSettings()
+  const { fadeUp, prefersReducedMotion } = useMotionSettings()
   const cardVariants = assembleCardVariants(prefersReducedMotion)
   const cardContentVariants = assembleCardContentVariants(prefersReducedMotion)
 
@@ -54,13 +54,7 @@ export default function Assemble() {
           subtitle="Не отдельные картинки и не разрозненные элементы. Я собираю цифровую форму идеи — образ, историю, интерфейс и систему."
         />
 
-        <motion.div
-          className="relative max-w-4xl mx-auto"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ staggerChildren: stagger }}
-        >
+        <div className="relative max-w-4xl mx-auto">
           <svg
             className="assemble-grid-svg absolute inset-0 w-full h-full pointer-events-none opacity-45 sm:opacity-55 md:opacity-100"
             viewBox="0 0 400 400"
@@ -85,6 +79,9 @@ export default function Assemble() {
               <motion.article
                 key={card.id}
                 className={`assemble-card group ${index % 2 === 1 ? 'sm:translate-y-3 lg:translate-y-4' : ''}`}
+                initial="hidden"
+                whileInView="visible"
+                viewport={itemViewport}
                 variants={cardVariants}
                 whileHover={prefersReducedMotion ? {} : { y: -4 }}
                 transition={{ type: 'spring', stiffness: 380, damping: 24 }}
@@ -112,11 +109,14 @@ export default function Assemble() {
 
           <motion.p
             className="mt-10 text-center text-xs sm:text-sm tracking-[0.14em] uppercase text-lavender/60"
+            initial="hidden"
+            whileInView="visible"
+            viewport={sectionViewport}
             variants={fadeUp}
           >
             Образ · История · Интерфейс · Система
           </motion.p>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

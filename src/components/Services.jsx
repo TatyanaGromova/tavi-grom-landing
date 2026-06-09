@@ -1,33 +1,38 @@
-import { motion } from 'framer-motion'
 import SectionTitle from './SectionTitle'
-import ServiceCard from './ServiceCard'
-import { services } from '../data/services'
-import { useMotionSettings } from '../utils/motion'
+import ServicePrimaryCard from './ServicePrimaryCard'
+import ServiceExtraGroup from './ServiceExtraGroup'
+import { extraServices, primaryServices } from '../data/services'
+
+const OFFSET_CLASSES = [
+  '',
+  'service-primary-card--offset-b',
+  'service-primary-card--offset-a',
+  '',
+]
 
 export default function Services() {
-  const { stagger } = useMotionSettings()
-
   return (
     <section id="services" className="section-padding section-surface">
       <div className="container-wide">
-        <SectionTitle title="Что я делаю" />
+        <SectionTitle
+          title="Что я делаю"
+          subtitle="Собираю проекты там, где идея должна стать образом, структурой и цифровой формой."
+          entryOffset={16}
+        />
 
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ staggerChildren: stagger }}
-        >
-          {services.map((service, index) => (
-            <ServiceCard
+        <div className="service-primary-grid">
+          {primaryServices.map((service, index) => (
+            <ServicePrimaryCard
               key={service.id}
+              index={service.id}
               title={service.title}
               description={service.description}
-              index={index}
+              offsetClass={OFFSET_CLASSES[index]}
             />
           ))}
-        </motion.div>
+        </div>
+
+        <ServiceExtraGroup items={extraServices} />
       </div>
     </section>
   )
