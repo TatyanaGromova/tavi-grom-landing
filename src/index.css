@@ -138,6 +138,200 @@
     }
   }
 
+  .about-section {
+    @apply px-5 sm:px-8 lg:px-12 xl:px-16 py-14 sm:py-16 lg:py-[3.5rem];
+  }
+
+  @media (min-width: 1024px) {
+    .about-section {
+      min-height: auto;
+      max-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .about-section .container-wide {
+      width: 100%;
+    }
+  }
+
+  .about-layout {
+    @apply flex flex-col gap-8 sm:gap-9;
+  }
+
+  @media (min-width: 1024px) {
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.88fr);
+      gap: 2rem 2.5rem;
+      align-items: start;
+    }
+
+    .about-photo {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .about-copy {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
+
+  .about-title-line {
+    @apply mt-4 mb-5 h-px w-16;
+    background: linear-gradient(90deg, rgba(214, 185, 140, 0.5), transparent);
+  }
+
+  .about-text {
+    max-width: 36rem;
+  }
+
+  .about-photo {
+    @apply w-full max-w-sm mx-auto lg:max-w-none lg:mx-0 lg:ml-auto self-start;
+  }
+
+  .about-photo-frame {
+    border: 1px solid rgba(214, 185, 140, 0.18);
+    box-shadow:
+      0 20px 56px rgba(0, 0, 0, 0.34),
+      0 0 40px rgba(168, 52, 68, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  @media (min-width: 1024px) {
+    .about-photo-frame {
+      max-height: min(78vh, 560px);
+    }
+
+    .about-photo-frame > div,
+    .about-photo-frame img {
+      max-height: min(78vh, 560px);
+      object-fit: cover;
+    }
+  }
+
+  .about-role-tree {
+    position: relative;
+  }
+
+  .about-role-tree--desktop {
+    margin-top: 1.25rem;
+    min-height: 260px;
+    max-height: 300px;
+  }
+
+  .about-role-tree__svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.92;
+  }
+
+  .about-branch-line {
+    vector-effect: non-scaling-stroke;
+  }
+
+  .about-role-tree__leaves {
+    position: relative;
+    z-index: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-height: 260px;
+  }
+
+  .about-role-leaf {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    max-width: min(240px, 46vw);
+    padding: 0.5rem 0.85rem 0.5rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    line-height: 1.35;
+    color: var(--text-primary);
+    background: linear-gradient(145deg, rgba(38, 36, 42, 0.96), rgba(28, 27, 32, 0.92));
+    border: 1px solid rgba(214, 185, 140, 0.22);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: default;
+  }
+
+  @media (min-width: 1280px) {
+    .about-role-leaf {
+      font-size: 0.78rem;
+      max-width: 260px;
+      padding: 0.55rem 0.95rem 0.55rem 0.7rem;
+    }
+  }
+
+  .about-role-leaf:hover {
+    border-color: rgba(214, 185, 140, 0.38);
+    box-shadow:
+      0 10px 32px rgba(0, 0, 0, 0.32),
+      0 0 24px rgba(214, 185, 140, 0.1),
+      0 0 16px rgba(168, 52, 68, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .about-role-leaf__index {
+    flex-shrink: 0;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: rgba(214, 185, 140, 0.45);
+  }
+
+  .about-role-leaf__label {
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .about-role-tree--mobile {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-top: 0.25rem;
+  }
+
+  .about-role-tree__mobile-stem {
+    position: absolute;
+    left: 0.35rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      rgba(168, 52, 68, 0.65),
+      rgba(120, 32, 48, 0.35)
+    );
+    box-shadow: 0 0 8px rgba(168, 52, 68, 0.2);
+  }
+
+  .about-role-tree__mobile-leaves {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .about-role-tree--mobile .about-role-leaf {
+    position: relative;
+    max-width: 100%;
+    width: fit-content;
+  }
+
+  .about-role-leaf--shift-right {
+    margin-left: 0.75rem;
+  }
+
   .text-gradient {
     background: linear-gradient(135deg, var(--accent-soft), var(--accent-primary), var(--accent-warm));
     -webkit-background-clip: text;
