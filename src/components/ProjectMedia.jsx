@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import PlaceholderMedia from './PlaceholderMedia'
+import ProjectVerticalVideo from './ProjectVerticalVideo'
 
 function mediaStyle(fit, position) {
   return {
@@ -17,6 +18,19 @@ export function resolveProjectMedia(project, overrides = {}) {
     'center'
 
   return { fit, position }
+}
+
+export function resolveCardMedia(project) {
+  if (project?.cover) return { kind: 'image', src: project.cover }
+  if (project?.image) return { kind: 'image', src: project.image }
+  if (project?.previewVideo) {
+    return {
+      kind: 'vertical-preview',
+      src: project.previewVideo,
+      poster: project.poster ?? project.cover ?? null,
+    }
+  }
+  return { kind: 'placeholder' }
 }
 
 function ContainBackdrop({ src, isVideo = false }) {
@@ -71,24 +85,40 @@ export default function ProjectMedia({
   const { fit, position } = resolveProjectMedia(project, { mediaFit, mediaPosition })
   const isContain = fit === 'contain'
   const resolvedAlt = alt || project?.alt || 'Медиа проекта'
+
+  const cardMedia = variant === 'card' && type === 'auto' ? resolveCardMedia(project) : null
+
   const resolvedType =
     type === 'auto'
-      ? project?.previewVideo
-        ? 'preview'
-        : project?.video && !project?.image
-          ? 'video'
-          : 'image'
+      ? cardMedia
+        ? cardMedia.kind === 'image'
+          ? 'image'
+          : cardMedia.kind === 'vertical-preview'
+            ? 'vertical-preview'
+            : 'placeholder'
+        : project?.heroVideo && variant === 'detail'
+          ? 'vertical-hero'
+          : project?.previewVideo && variant === 'detail' && project?.verticalVideos
+            ? 'vertical-hero'
+            : project?.previewVideo
+              ? 'preview'
+              : project?.video && !project?.image && !project?.cover
+                ? 'video'
+                : project?.cover
+                  ? 'image'
+                  : 'image'
       : type
 
   const [videoFailed, setVideoFailed] = useState(false)
   const [currentVideo, setCurrentVideo] = useState(
-    () => project?.previewVideo || project?.video || src,
+    () => project?.heroVideo || project?.previewVideo || project?.video || src,
   )
 
   const shellClass = [
     'project-media',
     `project-media--${variant}`,
     isContain ? 'project-media--contain' : 'project-media--cover',
+    resolvedType === 'vertical-preview' ? 'project-media--vertical-phone' : '',
     className,
   ]
     .filter(Boolean)
@@ -106,17 +136,15 @@ export default function ProjectMedia({
     setVideoFailed(true)
   }
 
-  if (resolvedType === 'preview' || resolvedType === 'video') {
-    const videoSrc =
-      resolvedType === 'preview'
-        ? currentVideo || project?.previewVideo
-        : src || project?.video || currentVideo
+  if (resolvedType === 'vertical-preview') {
+    const videoSrc = cardMedia?.src || project?.previewVideo
+    const poster = cardMedia?.poster || project?.poster || project?.cover || null
 
     if (!videoSrc || videoFailed) {
       return (
         <div className={shellClass}>
           <PlaceholderMedia
-            src={project?.image}
+            src={poster}
             alt={resolvedAlt}
             caption="Здесь будет видео проекта"
             type="video"
@@ -129,11 +157,81 @@ export default function ProjectMedia({
       )
     }
 
-    const blurSrc = isContain ? project?.image || videoSrc : null
+    return (
+      <div className={shellClass}>
+        <ProjectVerticalVideo
+          src={videoSrc}
+          poster={poster}
+          mediaFit="cover"
+          mediaPosition={project?.mediaPosition ?? 'center'}
+          variant="card-phone"
+          autoplay={false}
+        />
+      </div>
+    )
+  }
+
+  if (resolvedType === 'vertical-hero') {
+    const videoSrc = project?.heroVideo || project?.previewVideo || src
+
+    if (!videoSrc || videoFailed) {
+      return (
+        <div className={shellClass}>
+          <PlaceholderMedia
+            src={project?.cover || project?.image}
+            alt={resolvedAlt}
+            caption="Здесь будет видео проекта"
+            type="video"
+            variant={index}
+            className="project-media__placeholder"
+            premium
+          />
+        </div>
+      )
+    }
+
+    return (
+      <div className={`${shellClass} project-media--vertical-hero`}>
+        <ProjectVerticalVideo
+          src={videoSrc}
+          poster={project?.cover || project?.poster}
+          mediaFit={fit}
+          mediaPosition={position}
+          variant="hero"
+          autoplay
+        />
+      </div>
+    )
+  }
+
+  if (resolvedType === 'preview' || resolvedType === 'video') {
+    const videoSrc =
+      resolvedType === 'preview'
+        ? currentVideo || project?.previewVideo
+        : src || project?.video || currentVideo
+
+    if (!videoSrc || videoFailed) {
+      return (
+        <div className={shellClass}>
+          <PlaceholderMedia
+            src={project?.cover || project?.image}
+            alt={resolvedAlt}
+            caption="Здесь будет видео проекта"
+            type="video"
+            variant={index}
+            className="project-media__placeholder"
+            objectPosition={position}
+            premium
+          />
+        </div>
+      )
+    }
+
+    const blurSrc = isContain ? project?.cover || project?.image || videoSrc : null
 
     return (
       <div className={shellClass}>
-        {isContain && <ContainBackdrop src={blurSrc} isVideo={!project?.image} />}
+        {isContain && <ContainBackdrop src={blurSrc} isVideo={!project?.image && !project?.cover} />}
         <video
           key={videoSrc}
           src={videoSrc}
@@ -151,7 +249,7 @@ export default function ProjectMedia({
     )
   }
 
-  const imageSrc = src || project?.image
+  const imageSrc = src || project?.cover || project?.image
 
   if (!imageSrc) {
     return (

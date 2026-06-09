@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import ProjectDetailVideoThumb from './ProjectDetailVideoThumb'
 import ProjectMedia from './ProjectMedia'
+import ProjectVideoStories from './ProjectVideoStories'
 import { fadeUpPremium, premiumEase, useMotionSettings } from '../utils/motion'
 
 function useIsDesktop() {
@@ -241,23 +241,31 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
                 )}
 
                 {project.videoGallery?.length > 0 && (
-                  <motion.div className="project-detail-panel__gallery" variants={galleryStagger}>
-                    <motion.p className="project-detail-panel__section-label" variants={contentItem(prefersReducedMotion)}>
-                      Видеогалерея
-                    </motion.p>
-                    <div className="project-detail-panel__video-grid">
-                      {project.videoGallery.map((item) => (
-                        <motion.div key={item.title} variants={galleryItem(prefersReducedMotion)}>
-                          <ProjectDetailVideoThumb
-                            title={item.title}
-                            src={item.src}
-                            description={item.description}
-                            mediaFit={item.mediaFit}
-                            mediaPosition={item.mediaPosition}
-                          />
-                        </motion.div>
-                      ))}
-                    </div>
+                  <motion.div variants={galleryStagger}>
+                    {project.verticalVideos ? (
+                      <ProjectVideoStories items={project.videoGallery} label="Видеоистории" />
+                    ) : (
+                      <motion.div className="project-detail-panel__gallery">
+                        <motion.p className="project-detail-panel__section-label" variants={contentItem(prefersReducedMotion)}>
+                          Видеогалерея
+                        </motion.p>
+                        <div className="project-detail-panel__video-grid">
+                          {project.videoGallery.map((item) => (
+                            <motion.div key={item.title} variants={galleryItem(prefersReducedMotion)}>
+                              <ProjectMedia
+                                project={project}
+                                variant="thumb"
+                                src={item.src}
+                                alt={item.title}
+                                mediaFit={item.mediaFit}
+                                mediaPosition={item.mediaPosition}
+                                type="video"
+                              />
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
                   </motion.div>
                 )}
               </motion.div>

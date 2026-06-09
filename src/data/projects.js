@@ -1,4 +1,5 @@
 import neuroVideo from '../assets/video/neuro-video.mp4'
+import aiVideoCoverImport from '../assets/projects/ai-video-cover.jpg'
 import aiVideoMain from '../assets/video/ai-video-main.mp4'
 import aiVideoDino from '../assets/video/ai-video-dino.mp4'
 import aiVideoMaslenitsa from '../assets/video/ai-video-maslenitsa.mp4'
@@ -7,6 +8,7 @@ import aiVideoSatkaChocolate from '../assets/video/ai-video-satka-chocolate.MP4'
 import { resolveMedia } from './media'
 
 const aiVideoMainResolved = aiVideoMain ?? resolveMedia('video/ai-video-main.mp4')
+const aiVideoCover = aiVideoCoverImport ?? resolveMedia('projects/ai-video-cover.jpg')
 
 const paths = {
   kotelCover: 'projects/kotel-cover.png',
@@ -204,10 +206,14 @@ export const projects = [
     work: 'Собраны сценарии, промпты, раскадровки и визуальные сцены. Смонтированы ролики на разные темы.',
     result: 'Получилась видео-витрина с разными настроениями — от сказки до имиджевого клипа.',
     image: null,
+    cover: aiVideoCover,
+    poster: aiVideoCover,
     gallery: [],
     video: null,
+    heroVideo: aiVideoMainResolved || aiVideoDino,
     previewVideo: aiVideoMainResolved || aiVideoDino,
     previewVideoFallback: aiVideoDino,
+    verticalVideos: true,
     videoGallery: [
       {
         title: 'Ролик про динозавра',
