@@ -5,8 +5,39 @@ import DecorativeWaveLine from './DecorativeWaveLine'
 import { assembleCards } from '../data/assemble'
 import { useMotionSettings } from '../utils/motion'
 
+const assembleCardVariants = (prefersReducedMotion) =>
+  prefersReducedMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, y: 28 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: 0.55,
+            ease: [0.22, 1, 0.36, 1],
+            staggerChildren: 0.1,
+            delayChildren: 0.08,
+          },
+        },
+      }
+
+const assembleCardContentVariants = (prefersReducedMotion) =>
+  prefersReducedMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, x: -6 },
+        visible: {
+          opacity: 1,
+          x: 0,
+          transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+        },
+      }
+
 export default function Assemble() {
   const { fadeUp, stagger, prefersReducedMotion } = useMotionSettings()
+  const cardVariants = assembleCardVariants(prefersReducedMotion)
+  const cardContentVariants = assembleCardContentVariants(prefersReducedMotion)
 
   return (
     <section id="assemble" className="section-padding section-alt relative overflow-hidden">
@@ -31,7 +62,7 @@ export default function Assemble() {
           transition={{ staggerChildren: stagger }}
         >
           <svg
-            className="assemble-grid-svg absolute inset-0 w-full h-full pointer-events-none hidden md:block"
+            className="assemble-grid-svg absolute inset-0 w-full h-full pointer-events-none opacity-45 sm:opacity-55 md:opacity-100"
             viewBox="0 0 400 400"
             preserveAspectRatio="xMidYMid meet"
             aria-hidden="true"
@@ -54,12 +85,15 @@ export default function Assemble() {
               <motion.article
                 key={card.id}
                 className={`assemble-card group ${index % 2 === 1 ? 'sm:translate-y-3 lg:translate-y-4' : ''}`}
-                variants={fadeUp}
+                variants={cardVariants}
                 whileHover={prefersReducedMotion ? {} : { y: -4 }}
                 transition={{ type: 'spring', stiffness: 380, damping: 24 }}
               >
-                <DecorativeWaveLine index={index} prefersReducedMotion={prefersReducedMotion} />
-                <div className="assemble-card__content flex items-start gap-4">
+                <DecorativeWaveLine prefersReducedMotion={prefersReducedMotion} />
+                <motion.div
+                  className="assemble-card__content flex items-start gap-4"
+                  variants={cardContentVariants}
+                >
                   <span className="assemble-index" aria-hidden="true">
                     {String(card.id).padStart(2, '0')}
                   </span>
@@ -71,7 +105,7 @@ export default function Assemble() {
                       {card.description}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               </motion.article>
             ))}
           </div>
