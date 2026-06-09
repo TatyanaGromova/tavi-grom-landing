@@ -125,6 +125,19 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
+  .hero-media-shell {
+    width: 100%;
+    height: min(72vh, 720px);
+    min-height: 420px;
+  }
+
+  @media (max-width: 767px) {
+    .hero-media-shell {
+      height: min(68vw, 520px);
+      min-height: 320px;
+    }
+  }
+
   .text-gradient {
     background: linear-gradient(135deg, var(--accent-soft), var(--accent-primary), var(--accent-warm));
     -webkit-background-clip: text;

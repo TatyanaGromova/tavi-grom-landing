@@ -10,6 +10,7 @@ export default function HeroMedia({
   className = '',
   premium = true,
   objectPosition = 'center top',
+  fill = false,
 }) {
   const [mode, setMode] = useState(() => {
     if (videoSrc) return 'video'
@@ -17,14 +18,19 @@ export default function HeroMedia({
     return 'placeholder'
   })
 
+  const wrapperClass = fill
+    ? `relative w-full h-full overflow-hidden ${className}`
+    : `relative overflow-hidden ${aspectRatio} ${className}`
+
   if (mode === 'video' && videoSrc) {
     return (
-      <div className={`relative overflow-hidden ${aspectRatio} ${className}`}>
+      <div className={wrapperClass}>
         <video
           autoPlay
           muted
           loop
           playsInline
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition }}
           aria-label={alt}
@@ -45,8 +51,8 @@ export default function HeroMedia({
         type="portrait"
         variant={0}
         premium={premium}
-        aspectRatio={aspectRatio}
-        className={className}
+        aspectRatio={fill ? 'aspect-auto h-full' : aspectRatio}
+        className={fill ? `h-full w-full ${className}` : className}
         objectPosition={objectPosition}
         eager
         onMediaError={() => setMode('placeholder')}
@@ -62,8 +68,8 @@ export default function HeroMedia({
       type="portrait"
       variant={0}
       premium={premium}
-      aspectRatio={aspectRatio}
-      className={className}
+      aspectRatio={fill ? 'aspect-auto h-full' : aspectRatio}
+      className={fill ? `h-full w-full ${className}` : className}
     />
   )
 }

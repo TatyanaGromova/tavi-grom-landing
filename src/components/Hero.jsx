@@ -16,13 +16,13 @@ function HeroVisual({ prefersReducedMotion }) {
   return (
     <div className="relative w-full">
       <div
-        className="absolute -inset-4 sm:-inset-6 rounded-[2rem] bg-gradient-to-br from-accent/[0.07] via-transparent to-accent-warm/[0.06] blur-[56px] pointer-events-none"
+        className="absolute -inset-3 md:-inset-5 rounded-[2rem] bg-gradient-to-br from-accent/[0.06] via-transparent to-accent-warm/[0.05] blur-[48px] pointer-events-none"
         aria-hidden="true"
       />
 
       <motion.div
-        className="relative rounded-2xl sm:rounded-[1.75rem] lg:rounded-[2rem] overflow-hidden hero-media-frame"
-        whileHover={prefersReducedMotion ? {} : { scale: 1.008 }}
+        className="relative hero-media-frame rounded-2xl md:rounded-[2rem] overflow-hidden hero-media-shell"
+        whileHover={prefersReducedMotion ? {} : { scale: 1.006 }}
         transition={{ type: 'spring', stiffness: 320, damping: 28 }}
       >
         <HeroMedia
@@ -30,12 +30,11 @@ function HeroVisual({ prefersReducedMotion }) {
           imageSrc={portraits.main}
           alt="Портрет Татьяны Громовой"
           caption="Здесь будет портрет или видео"
-          aspectRatio="aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] xl:aspect-[3/4]"
-          className="rounded-[inherit]"
-          objectPosition="center 20%"
+          fill
+          objectPosition="center 22%"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-graphite/30 via-transparent to-graphite/10 pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-t from-graphite/25 via-transparent to-graphite/5 pointer-events-none"
           aria-hidden="true"
         />
       </motion.div>
@@ -67,23 +66,10 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <motion.div
-        className="absolute top-[15%] left-[5%] w-72 h-72 rounded-full bg-accent/[0.05] blur-[100px]"
-        animate={prefersReducedMotion ? {} : { x: [0, 20, 0], y: [0, -12, 0] }}
-        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-        aria-hidden="true"
-      />
-      <motion.div
-        className="absolute bottom-[15%] right-[10%] w-64 h-64 rounded-full bg-accent-warm/[0.05] blur-[100px]"
-        animate={prefersReducedMotion ? {} : { x: [0, -15, 0], y: [0, 10, 0] }}
-        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
-        aria-hidden="true"
-      />
-
       <div className="container-wide w-full px-5 sm:px-8 lg:px-12 xl:px-16 pt-20 sm:pt-24 pb-12 sm:pb-14 relative z-10">
-        <div className="grid lg:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)] gap-10 lg:gap-14 xl:gap-16 items-center">
+        <div className="grid md:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] gap-8 md:gap-10 lg:gap-14 xl:gap-16 items-center">
           <motion.div
-            className="relative max-w-xl lg:max-w-[32rem]"
+            className="relative max-w-xl md:max-w-[30rem] lg:max-w-[32rem]"
             style={prefersReducedMotion ? {} : { y, opacity }}
           >
             <motion.div
@@ -107,7 +93,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.h1
-              className="font-heading text-[1.7rem] sm:text-[2.35rem] md:text-[2.65rem] lg:text-[2.85rem] xl:text-[3rem] font-bold text-milk leading-[1.12] tracking-[-0.025em] max-w-[18ch] sm:max-w-[22ch]"
+              className="font-heading text-[1.7rem] sm:text-[2.35rem] md:text-[2.5rem] lg:text-[2.85rem] xl:text-[3rem] font-bold text-milk leading-[1.12] tracking-[-0.025em] max-w-[18ch] sm:max-w-[22ch]"
               variants={fadeUp}
               initial="hidden"
               animate="visible"
@@ -127,7 +113,17 @@ export default function Hero() {
             </motion.p>
 
             <motion.div
-              className="mt-5 author-line author-line-enhanced max-w-md"
+              className="mt-8 md:hidden"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: 0.22 }}
+            >
+              <HeroVisual prefersReducedMotion={prefersReducedMotion} />
+            </motion.div>
+
+            <motion.div
+              className="mt-5 md:mt-6 author-line author-line-enhanced max-w-md"
               variants={fadeUp}
               initial="hidden"
               animate="visible"
@@ -180,7 +176,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            className="w-full lg:min-h-[min(72vh,640px)] flex items-center"
+            className="hidden md:block w-full"
             variants={fadeUp}
             initial="hidden"
             animate="visible"
