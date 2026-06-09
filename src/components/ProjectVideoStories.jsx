@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion'
 import ProjectVerticalVideo from './ProjectVerticalVideo'
+import { buildVideoGalleryLightboxItems } from '../utils/lightbox'
 import { premiumEase, useMotionSettings } from '../utils/motion'
 
-export default function ProjectVideoStories({ items, label = 'Видеоистории' }) {
+export default function ProjectVideoStories({ items, label = 'Видеоистории', onOpenLightbox }) {
   const { prefersReducedMotion } = useMotionSettings()
 
   const itemVariants = prefersReducedMotion
@@ -39,21 +40,31 @@ export default function ProjectVideoStories({ items, label = 'Видеоисто
         <div className="project-video-stories__fade project-video-stories__fade--left" aria-hidden="true" />
         <div className="project-video-stories__fade project-video-stories__fade--right" aria-hidden="true" />
         <div className="project-video-stories__track">
-          {items.map((item) => (
+          {items.map((item, index) => (
             <motion.div
               key={item.title}
               className="project-video-stories__slide"
               variants={itemVariants}
             >
-              <ProjectVerticalVideo
-                src={item.src}
-                title={item.title}
-                description={item.description}
-                mediaFit={item.mediaFit ?? 'cover'}
-                mediaPosition={item.mediaPosition ?? 'center'}
-                poster={item.poster}
-                variant="story"
-              />
+              <button
+                type="button"
+                className="project-video-stories__open"
+                onClick={() => {
+                  const lightboxItems = buildVideoGalleryLightboxItems(items)
+                  if (lightboxItems.length) onOpenLightbox?.(lightboxItems, index)
+                }}
+                aria-label={`Открыть видео: ${item.title}`}
+              >
+                <ProjectVerticalVideo
+                  src={item.src}
+                  title={item.title}
+                  description={item.description}
+                  mediaFit={item.mediaFit ?? 'cover'}
+                  mediaPosition={item.mediaPosition ?? 'center'}
+                  poster={item.poster}
+                  variant="story"
+                />
+              </button>
             </motion.div>
           ))}
         </div>

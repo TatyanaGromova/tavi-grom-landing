@@ -69,6 +69,7 @@ export default function ProjectVerticalVideo({
           loop
           playsInline
           preload="metadata"
+          controls={false}
           className="project-vertical-video__video"
           style={{ objectFit: mediaFit, objectPosition: mediaPosition }}
           aria-label={title || 'Видео проекта'}

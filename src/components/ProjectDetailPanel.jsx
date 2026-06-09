@@ -2,6 +2,11 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import ProjectMedia from './ProjectMedia'
 import ProjectVideoStories from './ProjectVideoStories'
+import {
+  buildCoverLightboxItem,
+  buildGalleryLightboxItems,
+  buildVideoGalleryLightboxItems,
+} from '../utils/lightbox'
 import { fadeUpPremium, premiumEase, useMotionSettings } from '../utils/motion'
 
 function useIsDesktop() {
@@ -48,7 +53,7 @@ const galleryItem = (prefersReducedMotion) =>
         },
       }
 
-export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
+export default function ProjectDetailPanel({ project, triggerRef, onClose, onOpenLightbox }) {
   const titleId = useId()
   const closeRef = useRef(null)
   const isDesktop = useIsDesktop()
@@ -191,6 +196,11 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
                     type="auto"
                     eager
                     fallbackVideo={project.previewVideoFallback}
+                    clickable
+                    onClick={() => {
+                      const item = buildCoverLightboxItem(project)
+                      if (item) onOpenLightbox?.([item], 0)
+                    }}
                   />
                 </motion.div>
 
@@ -219,7 +229,7 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
                       Галерея
                     </motion.p>
                     <div className="project-detail-panel__gallery-grid">
-                      {project.gallery.map((item) => (
+                      {project.gallery.map((item, galleryIndex) => (
                         <motion.figure
                           key={item.src}
                           className={`project-detail-panel__gallery-item${item.mediaFit === 'contain' ? ' project-detail-panel__gallery-item--contain' : ''}`}
@@ -233,6 +243,11 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
                             mediaFit={item.mediaFit}
                             mediaPosition={item.mediaPosition}
                             type="image"
+                            clickable
+                            onClick={() => {
+                              const items = buildGalleryLightboxItems(project.gallery)
+                              if (items.length) onOpenLightbox?.(items, galleryIndex)
+                            }}
                           />
                         </motion.figure>
                       ))}
@@ -243,7 +258,11 @@ export default function ProjectDetailPanel({ project, triggerRef, onClose }) {
                 {project.videoGallery?.length > 0 && (
                   <motion.div variants={galleryStagger}>
                     {project.verticalVideos ? (
-                      <ProjectVideoStories items={project.videoGallery} label="Видеоистории" />
+                      <ProjectVideoStories
+                        items={project.videoGallery}
+                        label="Видеоистории"
+                        onOpenLightbox={onOpenLightbox}
+                      />
                     ) : (
                       <motion.div className="project-detail-panel__gallery">
                         <motion.p className="project-detail-panel__section-label" variants={contentItem(prefersReducedMotion)}>

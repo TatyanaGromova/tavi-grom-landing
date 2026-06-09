@@ -7,7 +7,6 @@ import About from './components/About'
 import Services from './components/Services'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
-import CaseStudy from './components/CaseStudy'
 import Process from './components/Process'
 import Audience from './components/Audience'
 import Contact from './components/Contact'
@@ -24,7 +23,6 @@ function HomePage() {
       <Services />
       <Skills />
       <Projects />
-      <CaseStudy />
       <Process />
       <Audience />
       <Contact />

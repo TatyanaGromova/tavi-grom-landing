@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import SectionTitle from './SectionTitle'
 import ProjectCarouselCard from './ProjectCarouselCard'
+import MediaLightbox from './MediaLightbox'
 import ProjectDetailPanel from './ProjectDetailPanel'
 import { projects } from '../data/projects'
 import {
@@ -18,6 +19,7 @@ export default function Projects() {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [selectedProject, setSelectedProject] = useState(null)
   const [detailTriggerRef, setDetailTriggerRef] = useState(null)
+  const [lightbox, setLightbox] = useState({ items: [], index: 0 })
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(true)
   const { prefersReducedMotion } = useMotionSettings()
@@ -113,6 +115,15 @@ export default function Projects() {
     setSelectedProject(null)
   }
 
+  const handleOpenLightbox = (items, index = 0) => {
+    if (!items?.length) return
+    setLightbox({ items, index })
+  }
+
+  const handleCloseLightbox = () => {
+    setLightbox({ items: [], index: 0 })
+  }
+
   return (
     <section id="projects" className="section-padding section-surface projects-section">
       <div className="container-wide">
@@ -169,6 +180,7 @@ export default function Projects() {
                       project={project}
                       index={index}
                       onOpenDetails={handleOpenDetails}
+                      onOpenLightbox={handleOpenLightbox}
                     />
                   </motion.div>
                 ))}
@@ -229,6 +241,14 @@ export default function Projects() {
         project={selectedProject}
         triggerRef={detailTriggerRef}
         onClose={handleCloseDetails}
+        onOpenLightbox={handleOpenLightbox}
+      />
+
+      <MediaLightbox
+        items={lightbox.items}
+        index={lightbox.index}
+        onClose={handleCloseLightbox}
+        onChange={(index) => setLightbox((prev) => ({ ...prev, index }))}
       />
     </section>
   )

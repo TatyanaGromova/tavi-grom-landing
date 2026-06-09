@@ -21,15 +21,8 @@ export function resolveProjectMedia(project, overrides = {}) {
 }
 
 export function resolveCardMedia(project) {
-  if (project?.cover) return { kind: 'image', src: project.cover }
-  if (project?.image) return { kind: 'image', src: project.image }
-  if (project?.previewVideo) {
-    return {
-      kind: 'vertical-preview',
-      src: project.previewVideo,
-      poster: project.poster ?? project.cover ?? null,
-    }
-  }
+  if (project?.cover) return { kind: 'cover', src: project.cover }
+  if (project?.previewVideo) return { kind: 'preview-video', src: project.previewVideo }
   return { kind: 'placeholder' }
 }
 
@@ -49,6 +42,7 @@ function ContainBackdrop({ src, isVideo = false }) {
           autoPlay
           loop
           preload="metadata"
+          controls={false}
           aria-hidden="true"
           tabIndex={-1}
         />
@@ -81,6 +75,8 @@ export default function ProjectMedia({
   className = '',
   eager = false,
   fallbackVideo = null,
+  clickable = false,
+  onClick,
 }) {
   const { fit, position } = resolveProjectMedia(project, { mediaFit, mediaPosition })
   const isContain = fit === 'contain'
@@ -91,22 +87,22 @@ export default function ProjectMedia({
   const resolvedType =
     type === 'auto'
       ? cardMedia
-        ? cardMedia.kind === 'image'
-          ? 'image'
-          : cardMedia.kind === 'vertical-preview'
-            ? 'vertical-preview'
+        ? cardMedia.kind === 'cover'
+          ? 'cover'
+          : cardMedia.kind === 'preview-video'
+            ? 'preview-video'
             : 'placeholder'
-        : project?.heroVideo && variant === 'detail'
+        : project?.heroVideo && variant === 'detail' && project?.verticalVideos
           ? 'vertical-hero'
           : project?.previewVideo && variant === 'detail' && project?.verticalVideos
             ? 'vertical-hero'
-            : project?.previewVideo
-              ? 'preview'
-              : project?.video && !project?.image && !project?.cover
-                ? 'video'
-                : project?.cover
-                  ? 'image'
-                  : 'image'
+            : project?.cover
+              ? 'cover'
+              : project?.previewVideo
+                ? 'preview-video'
+                : project?.video
+                  ? 'video'
+                  : 'cover'
       : type
 
   const [videoFailed, setVideoFailed] = useState(false)
@@ -118,7 +114,7 @@ export default function ProjectMedia({
     'project-media',
     `project-media--${variant}`,
     isContain ? 'project-media--contain' : 'project-media--cover',
-    resolvedType === 'vertical-preview' ? 'project-media--vertical-phone' : '',
+    clickable ? 'project-media--clickable' : '',
     className,
   ]
     .filter(Boolean)
@@ -136,139 +132,125 @@ export default function ProjectMedia({
     setVideoFailed(true)
   }
 
-  if (resolvedType === 'vertical-preview') {
-    const videoSrc = cardMedia?.src || project?.previewVideo
-    const poster = cardMedia?.poster || project?.poster || project?.cover || null
+  const wrapInteractive = (content) => {
+    if (!clickable || !onClick) return content
 
-    if (!videoSrc || videoFailed) {
+    return (
+      <button
+        type="button"
+        className={shellClass}
+        onClick={onClick}
+        aria-label={`Открыть медиа: ${resolvedAlt}`}
+      >
+        {content}
+      </button>
+    )
+  }
+
+  const renderShell = (content) => {
+    if (clickable && onClick) {
       return (
-        <div className={shellClass}>
-          <PlaceholderMedia
-            src={poster}
-            alt={resolvedAlt}
-            caption="Здесь будет видео проекта"
-            type="video"
-            variant={index}
-            className="project-media__placeholder"
-            objectPosition={position}
-            premium
-          />
-        </div>
+        <button type="button" className={shellClass} onClick={onClick} aria-label={`Открыть медиа: ${resolvedAlt}`}>
+          {content}
+        </button>
       )
     }
 
-    return (
-      <div className={shellClass}>
-        <ProjectVerticalVideo
-          src={videoSrc}
-          poster={poster}
-          mediaFit="cover"
-          mediaPosition={project?.mediaPosition ?? 'center'}
-          variant="card-phone"
-          autoplay={false}
-        />
-      </div>
-    )
+    return <div className={shellClass}>{content}</div>
   }
 
   if (resolvedType === 'vertical-hero') {
     const videoSrc = project?.heroVideo || project?.previewVideo || src
 
     if (!videoSrc || videoFailed) {
-      return (
-        <div className={shellClass}>
-          <PlaceholderMedia
-            src={project?.cover || project?.image}
-            alt={resolvedAlt}
-            caption="Здесь будет видео проекта"
-            type="video"
-            variant={index}
-            className="project-media__placeholder"
-            premium
-          />
-        </div>
+      return renderShell(
+        <PlaceholderMedia
+          src={project?.cover}
+          alt={resolvedAlt}
+          caption="Здесь будет видео проекта"
+          type="video"
+          variant={index}
+          className="project-media__placeholder"
+          premium
+        />,
       )
     }
 
-    return (
-      <div className={`${shellClass} project-media--vertical-hero`}>
+    return renderShell(
+      <div className="project-media--vertical-hero-inner">
         <ProjectVerticalVideo
           src={videoSrc}
-          poster={project?.cover || project?.poster}
           mediaFit={fit}
           mediaPosition={position}
           variant="hero"
           autoplay
         />
-      </div>
+      </div>,
     )
   }
 
-  if (resolvedType === 'preview' || resolvedType === 'video') {
+  if (resolvedType === 'preview-video' || resolvedType === 'preview' || resolvedType === 'video') {
     const videoSrc =
-      resolvedType === 'preview'
-        ? currentVideo || project?.previewVideo
-        : src || project?.video || currentVideo
+      resolvedType === 'preview-video'
+        ? cardMedia?.src || project?.previewVideo
+        : src || project?.video || currentVideo || project?.previewVideo
 
     if (!videoSrc || videoFailed) {
-      return (
-        <div className={shellClass}>
-          <PlaceholderMedia
-            src={project?.cover || project?.image}
-            alt={resolvedAlt}
-            caption="Здесь будет видео проекта"
-            type="video"
-            variant={index}
-            className="project-media__placeholder"
-            objectPosition={position}
-            premium
-          />
-        </div>
-      )
-    }
-
-    const blurSrc = isContain ? project?.cover || project?.image || videoSrc : null
-
-    return (
-      <div className={shellClass}>
-        {isContain && <ContainBackdrop src={blurSrc} isVideo={!project?.image && !project?.cover} />}
-        <video
-          key={videoSrc}
-          src={videoSrc}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="project-media__asset"
-          style={mediaStyle(fit, position)}
-          aria-label={resolvedAlt}
-          onError={handleVideoError}
-        />
-      </div>
-    )
-  }
-
-  const imageSrc = src || project?.cover || project?.image
-
-  if (!imageSrc) {
-    return (
-      <div className={shellClass}>
+      return renderShell(
         <PlaceholderMedia
-          src={null}
+          src={project?.cover}
           alt={resolvedAlt}
-          caption="Здесь будет изображение проекта"
+          caption="Здесь будет видео проекта"
+          type="video"
           variant={index}
           className="project-media__placeholder"
           objectPosition={position}
           premium
+        />,
+      )
+    }
+
+    const blurSrc = isContain ? project?.cover || videoSrc : null
+
+    return renderShell(
+      <>
+        {isContain && <ContainBackdrop src={blurSrc} isVideo={!project?.cover} />}
+        <video
+          key={videoSrc}
+          src={videoSrc}
+          autoPlay={variant === 'card' || variant === 'detail'}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          controls={false}
+          className="project-media__asset"
+          style={mediaStyle('cover', project?.mediaPosition ?? position ?? 'center')}
+          aria-label={resolvedAlt}
+          onError={handleVideoError}
         />
-      </div>
+      </>,
     )
   }
 
-  return (
-    <div className={shellClass}>
+  const imageSrc = src || project?.cover
+
+  if (!imageSrc) {
+    return renderShell(
+      <PlaceholderMedia
+        src={null}
+        alt={resolvedAlt}
+        caption="Здесь будет изображение проекта"
+        variant={index}
+        className="project-media__placeholder"
+        objectPosition={position}
+        premium
+      />,
+    )
+  }
+
+  return renderShell(
+    <>
       {isContain && <ContainBackdrop src={imageSrc} />}
       <img
         src={imageSrc}
@@ -277,6 +259,6 @@ export default function ProjectMedia({
         style={mediaStyle(fit, position)}
         loading={eager ? 'eager' : 'lazy'}
       />
-    </div>
+    </>,
   )
 }

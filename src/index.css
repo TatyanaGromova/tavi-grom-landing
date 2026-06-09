@@ -597,6 +597,21 @@
     background: rgba(22, 21, 25, 0.98);
   }
 
+  .project-media--clickable {
+    @apply block w-full h-full p-0 border-0 cursor-zoom-in;
+    background: transparent;
+    text-align: left;
+  }
+
+  .project-media--clickable:focus-visible {
+    outline: 2px solid rgba(214, 185, 140, 0.35);
+    outline-offset: 2px;
+  }
+
+  .project-media--vertical-hero-inner {
+    @apply w-full h-full flex items-center justify-center;
+  }
+
   .project-media__blur-bg {
     @apply absolute inset-0 pointer-events-none;
     background-repeat: no-repeat;
@@ -789,6 +804,134 @@
   .project-video-stories__slide {
     flex: 0 0 auto;
     scroll-snap-align: start;
+  }
+
+  .project-video-stories__open {
+    @apply block w-full p-0 border-0 bg-transparent cursor-zoom-in;
+    text-align: left;
+  }
+
+  .project-video-stories__open:focus-visible {
+    outline: 2px solid rgba(214, 185, 140, 0.35);
+    outline-offset: 3px;
+    border-radius: 0.75rem;
+  }
+
+  .media-lightbox-root {
+    @apply fixed inset-0 z-[80] flex items-center justify-center;
+    padding: 1rem;
+  }
+
+  .media-lightbox-backdrop {
+    @apply absolute inset-0 border-0 cursor-pointer;
+    background: rgba(12, 12, 14, 0.86);
+    backdrop-filter: blur(8px);
+  }
+
+  .media-lightbox-panel {
+    @apply relative z-10 flex flex-col items-center max-w-full;
+    width: min(96vw, 72rem);
+  }
+
+  .media-lightbox-close {
+    @apply absolute -top-1 right-0 sm:top-0 sm:right-0 z-20 flex items-center justify-center rounded-full transition-all duration-300;
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: rgba(244, 239, 232, 0.92);
+    background: rgba(34, 33, 38, 0.92);
+    border: 1px solid rgba(214, 185, 140, 0.28);
+  }
+
+  .media-lightbox-close:hover,
+  .media-lightbox-close:focus-visible {
+    border-color: rgba(214, 185, 140, 0.45);
+    box-shadow: 0 0 16px rgba(214, 185, 140, 0.12);
+    outline: none;
+  }
+
+  .media-lightbox-nav {
+    @apply absolute top-1/2 -translate-y-1/2 z-20 flex items-center justify-center rounded-full;
+    width: 2.25rem;
+    height: 2.25rem;
+    color: rgba(244, 239, 232, 0.9);
+    background: rgba(34, 33, 38, 0.9);
+    border: 1px solid rgba(214, 185, 140, 0.24);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .media-lightbox-nav:hover,
+  .media-lightbox-nav:focus-visible {
+    border-color: rgba(214, 185, 140, 0.42);
+    box-shadow: 0 0 14px rgba(214, 185, 140, 0.1);
+    outline: none;
+  }
+
+  .media-lightbox-nav svg {
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+
+  .media-lightbox-nav--prev {
+    left: 0.75rem;
+  }
+
+  .media-lightbox-nav--next {
+    right: 0.75rem;
+  }
+
+  .media-lightbox-stage {
+    @apply relative flex items-center justify-center overflow-hidden rounded-xl;
+    width: 100%;
+    min-height: 12rem;
+    max-height: 86vh;
+    background: rgba(22, 21, 25, 0.98);
+    border: 1px solid rgba(214, 185, 140, 0.22);
+    box-shadow:
+      0 18px 48px rgba(0, 0, 0, 0.42),
+      0 0 28px rgba(214, 185, 140, 0.06);
+  }
+
+  .media-lightbox-stage--vertical {
+    width: auto;
+    max-width: min(90vw, 22rem);
+  }
+
+  .media-lightbox-stage--vertical .media-lightbox-video {
+    aspect-ratio: 9 / 16;
+    width: auto;
+    max-width: 100%;
+    max-height: 86vh;
+    height: auto;
+  }
+
+  .media-lightbox-image,
+  .media-lightbox-video {
+    display: block;
+    max-width: 90vw;
+    max-height: 86vh;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .media-lightbox-caption {
+    @apply mt-3 text-center;
+    max-width: 36rem;
+  }
+
+  .media-lightbox-caption__title {
+    @apply text-sm font-semibold text-milk;
+  }
+
+  .media-lightbox-caption__desc {
+    @apply mt-1 text-xs text-soft-gray leading-relaxed;
+  }
+
+  .media-lightbox-counter {
+    @apply mt-2 text-[11px] text-soft-gray;
+    color: rgba(214, 185, 140, 0.55);
   }
 
   .project-video-stories__fade {

@@ -1,8 +1,9 @@
 import { useRef } from 'react'
 import ProjectMedia from './ProjectMedia'
+import { buildCoverLightboxItem } from '../utils/lightbox'
 import { useMotionSettings } from '../utils/motion'
 
-export default function ProjectCarouselCard({ project, index, onOpenDetails }) {
+export default function ProjectCarouselCard({ project, index, onOpenDetails, onOpenLightbox }) {
   const triggerRef = useRef(null)
   const { prefersReducedMotion } = useMotionSettings()
   const primaryTag = project.category?.split(',')[0]?.trim()
@@ -11,12 +12,24 @@ export default function ProjectCarouselCard({ project, index, onOpenDetails }) {
     onOpenDetails(project, triggerRef)
   }
 
+  const handleMediaOpen = () => {
+    const item = buildCoverLightboxItem(project)
+    if (item) onOpenLightbox([item], 0)
+  }
+
   return (
     <article
       className={`project-carousel-card group${prefersReducedMotion ? '' : ' project-carousel-card--animated'}`}
     >
       <div className="project-carousel-card__media">
-        <ProjectMedia project={project} variant="card" index={index} type="auto" />
+        <ProjectMedia
+          project={project}
+          variant="card"
+          index={index}
+          type="auto"
+          clickable
+          onClick={handleMediaOpen}
+        />
       </div>
 
       <div className="project-carousel-card__body">
