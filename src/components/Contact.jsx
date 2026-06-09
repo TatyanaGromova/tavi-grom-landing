@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import PlaceholderMedia from './PlaceholderMedia'
 import SectionTitle from './SectionTitle'
+import { portraits } from '../data/portraits'
 import { useMotionSettings } from '../utils/motion'
 
 // ЗАМЕНИТЕ ССЫЛКИ НА РЕАЛЬНЫЕ:
@@ -60,20 +62,41 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section-padding section-surface">
-      <div className="container-wide max-w-4xl">
-        <SectionTitle
-          title="Обсудим ваш проект?"
-        />
+      <div className="container-wide max-w-5xl">
+        <div className="grid lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-start mb-8">
+          <div>
+            <SectionTitle title="Обсудим ваш проект?" />
 
-        <motion.p
-          className="text-base sm:text-lg text-soft-gray leading-relaxed mb-8 -mt-6"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUp}
-        >
-          Напишите мне, если нужен визуал, сайт, игра, приложение, бот, ролик, нейрофотосессия, упаковка проекта или консультация по нейросетям.
-        </motion.p>
+            <motion.p
+              className="text-base sm:text-lg text-soft-gray leading-relaxed -mt-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+            >
+              Напишите мне, если нужен визуал, сайт, игра, приложение, бот, ролик, нейрофотосессия, упаковка проекта или консультация по нейросетям.
+            </motion.p>
+          </div>
+
+          {portraits.profile && (
+            <motion.div
+              className="hidden lg:block w-36 xl:w-44 rounded-2xl overflow-hidden premium-card shrink-0"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+            >
+              <PlaceholderMedia
+                src={portraits.profile}
+                alt="Татьяна Громова"
+                caption="Здесь будет портрет"
+                type="portrait"
+                aspectRatio="aspect-[3/4]"
+                objectPosition="center top"
+              />
+            </motion.div>
+          )}
+        </div>
 
         <motion.div
           className="flex flex-col sm:flex-row gap-4 mb-10"

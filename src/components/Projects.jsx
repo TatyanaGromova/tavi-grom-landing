@@ -29,7 +29,9 @@ export default function Projects() {
               category={project.category}
               description={project.description}
               image={project.image}
-              imageAlt={project.imageAlt}
+              imageAlt={project.alt}
+              video={project.video}
+              objectPosition={project.objectPosition}
               index={index}
             />
           ))}

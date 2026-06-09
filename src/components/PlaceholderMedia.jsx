@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
 const gradientVariants = [
@@ -34,28 +35,45 @@ export default function PlaceholderMedia({
   variant = 0,
   aspectRatio = 'aspect-[4/3]',
   premium = false,
+  objectPosition = 'center',
+  eager = false,
+  onMediaError,
+  showControls = false,
 }) {
   const prefersReducedMotion = useReducedMotion()
+  const [failed, setFailed] = useState(false)
 
-  if (src) {
-    if (type === 'video') {
+  const handleError = () => {
+    setFailed(true)
+    onMediaError?.()
+  }
+
+  if (src && !failed) {
+    if (type === 'video' && showControls) {
       return (
         <video
           src={src}
           className={`w-full h-full object-cover ${className}`}
+          style={{ objectPosition }}
           controls
+          muted
+          playsInline
           aria-label={alt}
+          onError={handleError}
         >
           <track kind="captions" />
         </video>
       )
     }
+
     return (
       <img
         src={src}
         alt={alt}
         className={`w-full h-full object-cover ${className}`}
-        loading="lazy"
+        style={{ objectPosition }}
+        loading={eager ? 'eager' : 'lazy'}
+        onError={handleError}
       />
     )
   }

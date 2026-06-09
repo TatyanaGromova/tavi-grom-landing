@@ -1,12 +1,8 @@
 import { motion } from 'framer-motion'
 import PlaceholderMedia from './PlaceholderMedia'
 import SectionTitle from './SectionTitle'
+import { portraits } from '../data/portraits'
 import { useMotionSettings } from '../utils/motion'
-
-// Чтобы добавить фото профиля:
-// 1. Положите файл в src/assets/portraits/
-// 2. Укажите путь ниже
-const PROFILE_IMAGE_SRC = null
 
 const roles = [
   'Креатор нейросетевых проектов',
@@ -44,12 +40,13 @@ export default function About() {
             variants={fadeUp}
           >
             <PlaceholderMedia
-              src={PROFILE_IMAGE_SRC}
-              alt="Фото Татьяны Громовой"
+              src={portraits.about}
+              alt="Татьяна Громова — креатор цифровых проектов"
               caption="Здесь будет портрет"
               type="portrait"
               variant={1}
               aspectRatio="aspect-[3/4]"
+              objectPosition="center top"
             />
           </motion.div>
         </div>

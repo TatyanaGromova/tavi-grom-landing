@@ -1,7 +1,26 @@
-// Чтобы добавить изображение проекта:
-// 1. Положите файл в src/assets/projects/ (например, kotyol.jpg)
-// 2. Укажите путь в поле image: '/src/assets/projects/kotyol.jpg'
-// Если image пустой или null — показывается заглушка
+import { resolveMedia } from './media'
+
+// Пути к файлам в src/assets/projects/ и src/assets/video/
+const paths = {
+  kotelCover: 'projects/kotel-cover.png',
+  kotelCarousel: 'projects/kotel-carousel.png',
+  kotelSite: 'projects/kotel-site.png',
+  kotelGame: 'projects/kotel-game.png',
+  kotelGameScreen: 'projects/kotel-game-screen.png',
+  kotelGamePromo: 'projects/kotel-game-promo.png',
+  plannerApp: 'projects/planner-app.png',
+  plannerCalendar: 'projects/planner-calendar.png',
+  plannerTasks: 'projects/planner-tasks.png',
+  nightInternet: 'projects/night-internet.png',
+  nightInternetHome: 'projects/night-internet-home.png',
+  nightInternetSputnik: 'projects/night-internet-sputnik.png',
+  nightInternetArchive: 'projects/night-internet-archive.png',
+  neuroPhoto: 'projects/neuro-photo.jpg',
+  neuroPhoto01: 'projects/neuro-photo-01.jpg',
+  neuroPhoto02: 'projects/neuro-photo-02.jpg',
+  neuroPhoto03: 'projects/neuro-photo-03.jpg',
+  neuroVideo: 'video/neuro-video.mp4',
+}
 
 export const projects = [
   {
@@ -10,8 +29,15 @@ export const projects = [
     category: 'упаковка, визуал, контент, сайт',
     description:
       'Визуальная упаковка, обложки, карусели, посты, структура сайта и логика заявок для сервисного центра.',
-    image: null,
-    imageAlt: 'Превью проекта «КотёлЪ»',
+    imagePath: paths.kotelCover,
+    image: resolveMedia(paths.kotelCover),
+    gallery: [
+      { src: resolveMedia(paths.kotelCarousel), alt: 'Карусель для соцсетей сервисного центра «КотёлЪ»' },
+      { src: resolveMedia(paths.kotelSite), alt: 'Структура сайта сервисного центра «КотёлЪ»' },
+    ],
+    video: null,
+    alt: 'Проект визуальной упаковки сервисного центра «КотёлЪ»',
+    objectPosition: 'center top',
   },
   {
     id: 2,
@@ -19,8 +45,15 @@ export const projects = [
     category: 'мини-игра, механика, промокоды',
     description:
       'Игра, где пользователь соединяет трубопровод от котла к радиатору, проходит уровни и получает бонус или промокод.',
-    image: null,
-    imageAlt: 'Превью игры для «КотёлЪ»',
+    imagePath: paths.kotelGame,
+    image: resolveMedia(paths.kotelGame),
+    gallery: [
+      { src: resolveMedia(paths.kotelGameScreen), alt: 'Игровой экран мини-игры для «КотёлЪ»' },
+      { src: resolveMedia(paths.kotelGamePromo), alt: 'Экран с промокодом в игре для «КотёлЪ»' },
+    ],
+    video: null,
+    alt: 'Мини-игра для сервисного центра «КотёлЪ»',
+    objectPosition: 'center',
   },
   {
     id: 3,
@@ -28,8 +61,15 @@ export const projects = [
     category: 'приложение, задачи, бюджет',
     description:
       'Приложение для дел и бюджета с задачами, операциями, календарём и мягким современным интерфейсом.',
-    image: null,
-    imageAlt: 'Превью приложения-планера',
+    imagePath: paths.plannerApp,
+    image: resolveMedia(paths.plannerApp),
+    gallery: [
+      { src: resolveMedia(paths.plannerCalendar), alt: 'Экран календаря приложения-планера' },
+      { src: resolveMedia(paths.plannerTasks), alt: 'Экран задач приложения-планера' },
+    ],
+    video: null,
+    alt: 'Приложение-планер для задач и бюджета',
+    objectPosition: 'center top',
   },
   {
     id: 4,
@@ -37,8 +77,16 @@ export const projects = [
     category: 'иммерсивный сайт, цифровой помощник',
     description:
       'Атмосферный проект с личным архивом, архивом снов, метафорическими картами и цифровым Спутником.',
-    image: null,
-    imageAlt: 'Превью проекта «Ночной Интернет»',
+    imagePath: paths.nightInternet,
+    image: resolveMedia(paths.nightInternet),
+    gallery: [
+      { src: resolveMedia(paths.nightInternetHome), alt: 'Главный экран проекта «Ночной Интернет»' },
+      { src: resolveMedia(paths.nightInternetSputnik), alt: 'Цифровой помощник Спутник' },
+      { src: resolveMedia(paths.nightInternetArchive), alt: 'Архив снов в проекте «Ночной Интернет»' },
+    ],
+    video: null,
+    alt: 'Иммерсивный проект «Ночной Интернет»',
+    objectPosition: 'center',
   },
   {
     id: 5,
@@ -46,8 +94,16 @@ export const projects = [
     category: 'визуальный образ, личный бренд',
     description:
       'Серии изображений для личного бренда, соцсетей, афиш и творческих проектов.',
-    image: null,
-    imageAlt: 'Превью нейрофотосессий',
+    imagePath: paths.neuroPhoto,
+    image: resolveMedia(paths.neuroPhoto),
+    gallery: [
+      { src: resolveMedia(paths.neuroPhoto01), alt: 'Нейрофотосессия — образ 1' },
+      { src: resolveMedia(paths.neuroPhoto02), alt: 'Нейрофотосессия — образ 2' },
+      { src: resolveMedia(paths.neuroPhoto03), alt: 'Нейрофотосессия — образ 3' },
+    ],
+    video: resolveMedia(paths.neuroVideo),
+    alt: 'Нейрофотосессии для личного бренда',
+    objectPosition: 'center top',
   },
   {
     id: 6,
@@ -55,7 +111,20 @@ export const projects = [
     category: 'видео, раскадровка, промпты',
     description:
       'Визуальные истории от идеи и сценария до кадров, анимации и монтажной логики.',
+    imagePath: null,
     image: null,
-    imageAlt: 'Превью AI-клипов',
+    gallery: [],
+    video: null,
+    alt: 'AI-клипы и визуальные истории',
+    objectPosition: 'center',
   },
 ]
+
+export const kotelCaseStudy = {
+  mainImage: resolveMedia(paths.kotelCover),
+  mainAlt: 'Визуальная упаковка сервисного центра «КотёлЪ»',
+  gallery: [
+    { src: resolveMedia(paths.kotelCarousel), alt: 'Карусель для соцсетей «КотёлЪ»' },
+    { src: resolveMedia(paths.kotelSite), alt: 'Структура сайта «КотёлЪ»' },
+  ],
+}

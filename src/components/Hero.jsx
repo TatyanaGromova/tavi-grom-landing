@@ -1,12 +1,10 @@
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import { useRef } from 'react'
-import PlaceholderMedia from './PlaceholderMedia'
+import HeroMedia from './HeroMedia'
 import HeroMediaInterior from './HeroMediaInterior'
 import Logo from './Logo'
+import { heroVideo, portraits } from '../data/portraits'
 import { scrollToSection, useMotionSettings } from '../utils/motion'
-
-const HERO_MEDIA_SRC = null
-const HERO_MEDIA_TYPE = 'portrait'
 
 const floatingCards = [
   { label: 'Визуалы', position: 'top-[10%] left-[2%]', z: 30, delay: 0.5 },
@@ -85,15 +83,14 @@ function HeroVisualComposition({ prefersReducedMotion }) {
             <div className="absolute top-12 left-4 right-4 h-px bg-gradient-to-r from-transparent via-lavender/25 to-transparent z-20" aria-hidden="true" />
 
             <div className="relative">
-              <PlaceholderMedia
-                src={HERO_MEDIA_SRC}
+              <HeroMedia
+                videoSrc={heroVideo}
+                imageSrc={portraits.main}
                 alt="Портрет Татьяны Громовой"
                 caption="Здесь будет портрет или видео"
-                type={HERO_MEDIA_TYPE}
-                variant={0}
-                premium
                 aspectRatio="aspect-[3/4]"
                 className="rounded-[1.75rem]"
+                objectPosition="center top"
               />
               <HeroMediaInterior />
             </div>
@@ -134,15 +131,14 @@ function HeroVisualComposition({ prefersReducedMotion }) {
             </span>
           </div>
           <div className="relative">
-            <PlaceholderMedia
-              src={HERO_MEDIA_SRC}
+            <HeroMedia
+              videoSrc={heroVideo}
+              imageSrc={portraits.main}
               alt="Портрет Татьяны Громовой"
               caption="Здесь будет портрет или видео"
-              type={HERO_MEDIA_TYPE}
-              variant={0}
-              premium
               aspectRatio="aspect-[5/4]"
               className="rounded-2xl"
+              objectPosition="center top"
             />
             <HeroMediaInterior compact />
           </div>

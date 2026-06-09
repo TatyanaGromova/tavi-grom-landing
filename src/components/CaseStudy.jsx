@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import PlaceholderMedia from './PlaceholderMedia'
 import SectionTitle from './SectionTitle'
+import { kotelCaseStudy } from '../data/projects'
 import { useMotionSettings } from '../utils/motion'
 
 const caseBlocks = [
@@ -22,12 +23,6 @@ const caseBlocks = [
   },
 ]
 
-const galleryCaptions = [
-  'Здесь будет обложка',
-  'Здесь будет изображение проекта',
-  'Здесь будет экран приложения',
-]
-
 export default function CaseStudy() {
   const { fadeUp, stagger } = useMotionSettings()
 
@@ -38,18 +33,20 @@ export default function CaseStudy() {
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           <motion.div
-            className="rounded-3xl overflow-hidden glass-panel shadow-xl"
+            className="rounded-3xl overflow-hidden premium-card shadow-xl"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeUp}
           >
             <PlaceholderMedia
-              src={null}
-              alt="Главное изображение кейса «КотёлЪ»"
+              src={kotelCaseStudy.mainImage}
+              alt={kotelCaseStudy.mainAlt}
               caption="Здесь будет изображение проекта"
               variant={0}
               aspectRatio="aspect-[4/3] lg:aspect-auto lg:min-h-[480px]"
+              objectPosition="center top"
+              eager
             />
           </motion.div>
 
@@ -63,7 +60,7 @@ export default function CaseStudy() {
             {caseBlocks.map((block) => (
               <motion.div
                 key={block.title}
-                className="glass-panel rounded-2xl p-5 sm:p-6 hover:bg-bg-elevated/60 transition-colors duration-300"
+                className="premium-card rounded-2xl p-5 sm:p-6 hover:border-accent/20 transition-colors duration-300"
                 variants={fadeUp}
               >
                 <h3 className="font-heading text-base sm:text-lg font-semibold text-lavender mb-3">
@@ -84,18 +81,19 @@ export default function CaseStudy() {
           viewport={{ once: true }}
           transition={{ staggerChildren: stagger }}
         >
-          {galleryCaptions.map((caption, i) => (
+          {kotelCaseStudy.gallery.map((item, i) => (
             <motion.div
-              key={caption}
-              className="rounded-2xl overflow-hidden glass-panel"
+              key={item.alt}
+              className="rounded-2xl overflow-hidden premium-card"
               variants={fadeUp}
             >
               <PlaceholderMedia
-                src={null}
-                alt={caption}
-                caption={caption}
+                src={item.src}
+                alt={item.alt}
+                caption="Здесь будет изображение проекта"
                 variant={i + 1}
                 aspectRatio="aspect-[16/10]"
+                objectPosition="center top"
               />
             </motion.div>
           ))}

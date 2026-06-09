@@ -1,8 +1,18 @@
 import { motion } from 'framer-motion'
 import PlaceholderMedia from './PlaceholderMedia'
+import VideoPreview from './VideoPreview'
 import { useMotionSettings } from '../utils/motion'
 
-export default function ProjectCard({ title, category, description, image, imageAlt, index = 0 }) {
+export default function ProjectCard({
+  title,
+  category,
+  description,
+  image,
+  imageAlt,
+  video = null,
+  objectPosition = 'center',
+  index = 0,
+}) {
   const { fadeUp, prefersReducedMotion } = useMotionSettings()
 
   return (
@@ -13,15 +23,28 @@ export default function ProjectCard({ title, category, description, image, image
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
     >
       <div className="relative overflow-hidden">
-        <PlaceholderMedia
-          src={image}
-          alt={imageAlt}
-          caption="Здесь будет изображение проекта"
-          variant={index}
-          aspectRatio="aspect-[16/10]"
-          className="rounded-t-2xl transition-transform duration-500 group-hover:scale-[1.03]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-graphite/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+        {video ? (
+          <VideoPreview
+            poster={image}
+            videoSrc={video}
+            alt={imageAlt}
+            caption="Здесь будет видео проекта"
+            aspectRatio="aspect-[16/10]"
+            className="rounded-t-2xl transition-transform duration-500 group-hover:scale-[1.02]"
+            objectPosition={objectPosition}
+          />
+        ) : (
+          <PlaceholderMedia
+            src={image}
+            alt={imageAlt}
+            caption="Здесь будет изображение проекта"
+            variant={index}
+            aspectRatio="aspect-[16/10]"
+            className="rounded-t-2xl transition-transform duration-500 group-hover:scale-[1.03]"
+            objectPosition={objectPosition}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-graphite/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5 pointer-events-none">
           <p className="text-sm text-milk/90 leading-relaxed line-clamp-3">
             {description}
           </p>
