@@ -1,19 +1,22 @@
 import { motion } from 'framer-motion'
 import SectionTitle from './SectionTitle'
+import AssembleWaves from './AssembleWaves'
 import { assembleCards } from '../data/assemble'
 import { useMotionSettings } from '../utils/motion'
 
 export default function Assemble() {
-  const { fadeUp, stagger } = useMotionSettings()
+  const { fadeUp, stagger, prefersReducedMotion } = useMotionSettings()
 
   return (
     <section id="assemble" className="section-padding section-alt relative overflow-hidden">
+      <AssembleWaves />
+
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(90vw,720px)] h-[min(90vw,720px)] rounded-full bg-accent/[0.04] blur-[100px] pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(90vw,720px)] h-[min(90vw,720px)] rounded-full bg-accent/[0.03] blur-[100px] pointer-events-none"
         aria-hidden="true"
       />
 
-      <div className="container-wide relative">
+      <div className="container-wide relative z-10">
         <SectionTitle
           title="Что я собираю"
           subtitle="Не отдельные картинки и не разрозненные элементы. Я собираю цифровую форму идеи — образ, историю, интерфейс и систему."
@@ -26,20 +29,19 @@ export default function Assemble() {
           viewport={{ once: true, margin: '-60px' }}
           transition={{ staggerChildren: stagger }}
         >
-          {/* Connecting lines — desktop */}
           <svg
-            className="absolute inset-0 w-full h-full pointer-events-none hidden md:block"
+            className="assemble-grid-svg absolute inset-0 w-full h-full pointer-events-none hidden md:block"
             viewBox="0 0 400 400"
             preserveAspectRatio="xMidYMid meet"
             aria-hidden="true"
           >
-            <line x1="100" y1="100" x2="300" y2="100" className="assemble-line" />
-            <line x1="100" y1="300" x2="300" y2="300" className="assemble-line" />
-            <line x1="100" y1="100" x2="100" y2="300" className="assemble-line" />
-            <line x1="300" y1="100" x2="300" y2="300" className="assemble-line" />
-            <line x1="200" y1="100" x2="200" y2="300" className="assemble-line-dashed" />
-            <line x1="100" y1="200" x2="300" y2="200" className="assemble-line-dashed" />
-            <circle cx="200" cy="200" r="4" className="assemble-node-center" />
+            <line x1="100" y1="100" x2="300" y2="100" className="assemble-line assemble-line--animated" />
+            <line x1="100" y1="300" x2="300" y2="300" className="assemble-line assemble-line--animated" />
+            <line x1="100" y1="100" x2="100" y2="300" className="assemble-line assemble-line--animated" />
+            <line x1="300" y1="100" x2="300" y2="300" className="assemble-line assemble-line--animated" />
+            <line x1="200" y1="100" x2="200" y2="300" className="assemble-line-dashed assemble-line--pulse" />
+            <line x1="100" y1="200" x2="300" y2="200" className="assemble-line-dashed assemble-line--pulse" />
+            <circle cx="200" cy="200" r="4" className="assemble-node-center assemble-node-center--glow" />
             <circle cx="100" cy="100" r="3" className="assemble-node" />
             <circle cx="300" cy="100" r="3" className="assemble-node" />
             <circle cx="100" cy="300" r="3" className="assemble-node" />
@@ -52,6 +54,8 @@ export default function Assemble() {
                 key={card.id}
                 className={`assemble-card group ${index % 2 === 1 ? 'sm:translate-y-3 lg:translate-y-4' : ''}`}
                 variants={fadeUp}
+                whileHover={prefersReducedMotion ? {} : { y: -4 }}
+                transition={{ type: 'spring', stiffness: 380, damping: 24 }}
               >
                 <div className="flex items-start gap-4">
                   <span className="assemble-index" aria-hidden="true">

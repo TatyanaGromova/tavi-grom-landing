@@ -4,9 +4,8 @@ import HeroMedia from './HeroMedia'
 import Logo from './Logo'
 import heroLoop from '../assets/video/hero-loop.mp4'
 import { portraits } from '../data/portraits'
+import HeroMarquee from './HeroMarquee'
 import { scrollToSection, useMotionSettings } from '../utils/motion'
-
-const factTags = ['Визуал', 'Видео', 'Сайты', 'Игры', 'Приложения', 'Боты']
 
 function Accent({ children }) {
   return <span className="accent-word">{children}</span>
@@ -159,20 +158,6 @@ export default function Hero() {
               </button>
             </motion.div>
 
-            <motion.div
-              className="mt-5 flex flex-wrap gap-2"
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              transition={{ delay: 0.4 }}
-              aria-label="Направления работы"
-            >
-              {factTags.map((tag) => (
-                <span key={tag} className="fact-tag">
-                  {tag}
-                </span>
-              ))}
-            </motion.div>
           </motion.div>
 
           <motion.div
@@ -185,6 +170,16 @@ export default function Hero() {
             <HeroVisual prefersReducedMotion={prefersReducedMotion} />
           </motion.div>
         </div>
+
+        <motion.div
+          className="mt-8 sm:mt-10 lg:mt-12 relative z-10"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.45 }}
+        >
+          <HeroMarquee />
+        </motion.div>
       </div>
     </section>
   )
