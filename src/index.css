@@ -142,39 +142,50 @@
     @apply px-5 sm:px-8 lg:px-12 xl:px-16 py-14 sm:py-16 lg:py-[3.5rem];
   }
 
-  @media (min-width: 1024px) {
-    .about-section {
-      min-height: auto;
-      max-height: 100vh;
-      display: flex;
-      align-items: center;
-    }
-
-    .about-section .container-wide {
-      width: 100%;
-    }
-  }
-
   .about-layout {
     @apply flex flex-col gap-8 sm:gap-9;
+  }
+
+  .about-head {
+    @apply order-1;
+  }
+
+  .about-photo {
+    @apply order-2 w-full max-w-sm mx-auto self-start;
+  }
+
+  .about-graph {
+    @apply order-3;
   }
 
   @media (min-width: 1024px) {
     .about-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.82fr);
-      gap: 2rem 3rem;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.85fr);
+      grid-template-rows: auto auto;
+      gap: 1.75rem 3rem;
       align-items: start;
+    }
+
+    .about-head {
+      grid-column: 1;
+      grid-row: 1;
+      order: unset;
+    }
+
+    .about-graph {
+      grid-column: 1;
+      grid-row: 2;
+      order: unset;
     }
 
     .about-photo {
       grid-column: 2;
-      grid-row: 1;
-    }
-
-    .about-copy {
-      grid-column: 1;
-      grid-row: 1;
+      grid-row: 1 / span 2;
+      order: unset;
+      max-width: none;
+      margin-left: auto;
+      margin-right: 0;
     }
   }
 
@@ -184,11 +195,7 @@
   }
 
   .about-text {
-    max-width: 36rem;
-  }
-
-  .about-photo {
-    @apply w-full max-w-sm mx-auto lg:max-w-none lg:mx-0 lg:ml-auto self-start;
+    max-width: 32rem;
   }
 
   .about-photo-frame {
@@ -201,142 +208,188 @@
 
   @media (min-width: 1024px) {
     .about-photo-frame {
-      max-height: min(78vh, 560px);
+      max-height: min(82vh, 580px);
     }
 
     .about-photo-frame > div,
     .about-photo-frame img {
-      max-height: min(78vh, 560px);
+      max-height: min(82vh, 580px);
       object-fit: cover;
     }
   }
 
   .about-graph {
-    @apply relative flex items-stretch;
-    margin-top: 1.35rem;
-    max-width: 34rem;
+    margin-top: 0.25rem;
+    max-width: 100%;
   }
 
-  .about-graph--desktop {
-    min-height: 17.5rem;
+  @media (min-width: 1024px) {
+    .about-graph {
+      margin-top: 0;
+      max-width: 36rem;
+    }
+  }
+
+  .about-graph__canvas {
+    @apply relative w-full;
+    height: 17.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .about-graph__canvas {
+      height: 18.5rem;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .about-graph__canvas {
+      height: 19.5rem;
+      max-width: 38rem;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .about-graph__canvas {
+      height: 16.5rem;
+    }
   }
 
   .about-graph__lines {
-    @apply relative shrink-0;
-    width: 2.75rem;
-    margin-right: 0.35rem;
+    @apply absolute inset-0 z-[1] pointer-events-none;
+  }
+
+  .about-graph__lines--desktop {
+    display: none;
+  }
+
+  .about-graph__lines--mobile {
+    display: block;
+  }
+
+  @media (min-width: 1024px) {
+    .about-graph__lines--desktop {
+      display: block;
+    }
+
+    .about-graph__lines--mobile {
+      display: none;
+    }
   }
 
   .about-graph__svg {
-    @apply absolute inset-0 h-full w-full pointer-events-none;
-    opacity: 0.9;
+    @apply h-full w-full;
+    opacity: 0.88;
   }
 
   .about-graph__path {
-    filter: drop-shadow(0 0 2px rgba(140, 38, 52, 0.16));
+    filter: drop-shadow(0 0 2px rgba(140, 38, 52, 0.14));
   }
 
   .about-graph__svg--shimmer .about-graph__path {
-    animation: about-graph-shimmer 12s ease-in-out infinite;
-  }
-
-  .about-graph__svg--shimmer .about-graph__path--stem {
-    animation-delay: 0s;
+    animation: about-graph-shimmer 13s ease-in-out infinite;
   }
 
   @keyframes about-graph-shimmer {
     0%, 100% {
-      opacity: 0.82;
-      filter: drop-shadow(0 0 2px rgba(140, 38, 52, 0.14));
+      opacity: 0.8;
+      filter: drop-shadow(0 0 2px rgba(140, 38, 52, 0.12));
     }
     50% {
-      opacity: 0.96;
-      filter: drop-shadow(0 0 3.5px rgba(168, 52, 68, 0.24));
+      opacity: 0.95;
+      filter: drop-shadow(0 0 3px rgba(168, 52, 68, 0.22));
     }
   }
 
   .about-graph__badges {
-    @apply flex flex-1 flex-col justify-between;
-    list-style: none;
-    margin: 0;
-    padding: 0.15rem 0;
-    gap: 0.55rem;
-    min-height: 17.5rem;
+    @apply absolute inset-0 z-[2] m-0 list-none p-0;
   }
 
   .about-graph__badge {
-    @apply inline-flex w-fit max-w-full items-center gap-2 rounded-full cursor-default;
-    padding: 0.48rem 0.9rem 0.48rem 0.62rem;
-    font-size: 0.72rem;
+    @apply absolute z-[2] inline-flex items-center gap-1.5 rounded-full cursor-default whitespace-nowrap;
+    padding: 0.44rem 0.78rem 0.44rem 0.56rem;
+    font-size: 0.68rem;
     line-height: 1;
     color: var(--text-primary);
-    background: linear-gradient(145deg, rgba(38, 36, 42, 0.96), rgba(28, 27, 32, 0.92));
+    background: linear-gradient(145deg, rgba(38, 36, 42, 0.94), rgba(28, 27, 32, 0.9));
     border: 1px solid rgba(214, 185, 140, 0.22);
     box-shadow:
-      0 8px 24px rgba(0, 0, 0, 0.28),
+      0 8px 22px rgba(0, 0, 0, 0.26),
       inset 0 1px 0 rgba(255, 255, 255, 0.04);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transform: translateY(-50%);
+  }
+
+  @media (min-width: 1024px) {
+    .about-graph__badge {
+      font-size: 0.72rem;
+      padding: 0.48rem 0.88rem 0.48rem 0.6rem;
+      gap: 0.45rem;
+    }
   }
 
   @media (min-width: 1280px) {
     .about-graph__badge {
-      font-size: 0.76rem;
-      padding: 0.52rem 1rem 0.52rem 0.68rem;
+      font-size: 0.74rem;
+      padding: 0.5rem 0.95rem 0.5rem 0.64rem;
     }
   }
 
   .about-graph__badge:hover {
-    border-color: rgba(214, 185, 140, 0.38);
+    border-color: rgba(214, 185, 140, 0.36);
     box-shadow:
-      0 10px 32px rgba(0, 0, 0, 0.32),
-      0 0 24px rgba(214, 185, 140, 0.1),
-      0 0 16px rgba(168, 52, 68, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      0 10px 28px rgba(0, 0, 0, 0.3),
+      0 0 20px rgba(214, 185, 140, 0.09),
+      0 0 14px rgba(168, 52, 68, 0.07),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .about-graph__badge-index {
     @apply shrink-0 font-semibold;
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     letter-spacing: 0.06em;
-    color: rgba(214, 185, 140, 0.45);
+    color: rgba(214, 185, 140, 0.42);
   }
 
   .about-graph__badge-label {
-    @apply font-medium whitespace-nowrap;
+    @apply font-medium;
     letter-spacing: 0.01em;
   }
 
-  .about-graph--mobile {
-    margin-top: 0.5rem;
-    max-width: 100%;
-    min-height: auto;
-  }
+  /* Desktop badge positions */
+  .about-graph__badge--1 { top: 6%; left: 45%; }
+  .about-graph__badge--2 { top: 21%; left: 62%; }
+  .about-graph__badge--3 { top: 36%; left: 40%; }
+  .about-graph__badge--4 { top: 51%; left: 68%; }
+  .about-graph__badge--5 { top: 66%; left: 42%; }
+  .about-graph__badge--6 { top: 81%; left: 59%; }
 
-  .about-graph--mobile .about-graph__lines {
-    width: 2.1rem;
-    margin-right: 0.25rem;
-  }
+  @media (max-width: 1023px) {
+    .about-graph__badge {
+      font-size: 0.64rem;
+      padding: 0.4rem 0.68rem 0.4rem 0.5rem;
+    }
 
-  .about-graph--mobile .about-graph__badges {
-    min-height: 16.5rem;
-    gap: 0.5rem;
-    padding: 0.1rem 0;
-  }
+    .about-graph__badge-index {
+      font-size: 0.54rem;
+    }
 
-  .about-graph--mobile .about-graph__badge {
-    font-size: 0.66rem;
-    padding: 0.42rem 0.72rem 0.42rem 0.55rem;
-  }
-
-  .about-graph--mobile .about-graph__badge-index {
-    font-size: 0.56rem;
+    .about-graph__badge--1 { top: 4%; left: 36%; }
+    .about-graph__badge--2 { top: 20%; left: 48%; }
+    .about-graph__badge--3 { top: 36%; left: 30%; }
+    .about-graph__badge--4 { top: 52%; left: 50%; }
+    .about-graph__badge--5 { top: 68%; left: 32%; }
+    .about-graph__badge--6 { top: 84%; left: 44%; }
   }
 
   @media (max-width: 380px) {
-    .about-graph--mobile .about-graph__badge {
-      font-size: 0.62rem;
-      padding-right: 0.62rem;
+    .about-graph__badge {
+      font-size: 0.6rem;
+      padding: 0.36rem 0.58rem 0.36rem 0.46rem;
     }
+
+    .about-graph__badge--2 { left: 44%; }
+    .about-graph__badge--4 { left: 46%; }
+    .about-graph__badge--6 { left: 40%; }
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import PlaceholderMedia from './PlaceholderMedia'
-import { AboutGraphDesktop, AboutGraphMobile } from './AboutGraph'
+import AboutGraph from './AboutGraph'
 import { portraits } from '../data/portraits'
 import { useMotionSettings } from '../utils/motion'
 
@@ -12,7 +12,7 @@ export default function About() {
       <div className="container-wide">
         <div className="about-layout">
           <motion.div
-            className="about-copy"
+            className="about-head"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
@@ -31,8 +31,6 @@ export default function About() {
                 В одном проекте я могу думать как арт-директор, специалист по промптам, сценарист, дизайнер интерфейса и вайбкодер — поэтому результат получается цельным, а не собранным из разрозненных кусочков.
               </p>
             </div>
-
-            <AboutGraphDesktop />
           </motion.div>
 
           <motion.div
@@ -41,7 +39,7 @@ export default function About() {
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
             variants={fadeUp}
-            transition={{ delay: 0.08 }}
+            transition={{ delay: 0.06 }}
           >
             <div className="about-photo-frame relative rounded-2xl overflow-hidden">
               <PlaceholderMedia
@@ -61,7 +59,7 @@ export default function About() {
             </div>
           </motion.div>
 
-          <AboutGraphMobile />
+          <AboutGraph />
         </div>
       </div>
     </section>
