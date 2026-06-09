@@ -116,6 +116,15 @@
       0 0 60px var(--glow);
   }
 
+  .hero-media-frame {
+    border: 1px solid rgba(214, 185, 140, 0.2);
+    box-shadow:
+      0 0 0 1px rgba(244, 239, 232, 0.04),
+      0 28px 72px rgba(0, 0, 0, 0.38),
+      0 0 48px rgba(214, 185, 140, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
   .text-gradient {
     background: linear-gradient(135deg, var(--accent-soft), var(--accent-primary), var(--accent-warm));
     -webkit-background-clip: text;

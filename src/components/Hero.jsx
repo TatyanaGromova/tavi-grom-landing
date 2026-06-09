@@ -1,17 +1,10 @@
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import HeroMedia from './HeroMedia'
-import HeroMediaInterior from './HeroMediaInterior'
 import Logo from './Logo'
 import heroLoop from '../assets/video/hero-loop.mp4'
 import { portraits } from '../data/portraits'
 import { scrollToSection, useMotionSettings } from '../utils/motion'
-
-const floatingCards = [
-  { label: 'Визуалы', position: 'top-[6%] left-[0%]', z: 20, delay: 0.5 },
-  { label: 'Сайты', position: 'top-[4%] right-[0%]', z: 20, delay: 0.65 },
-  { label: 'Видео', position: 'bottom-[6%] right-[2%]', z: 20, delay: 0.8 },
-]
 
 const factTags = ['Визуал', 'Видео', 'Сайты', 'Игры', 'Приложения', 'Боты']
 
@@ -19,114 +12,34 @@ function Accent({ children }) {
   return <span className="accent-word">{children}</span>
 }
 
-function HeroVisualComposition({ prefersReducedMotion }) {
-  const containerRef = useRef(null)
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const springX = useSpring(mouseX, { stiffness: 80, damping: 20 })
-  const springY = useSpring(mouseY, { stiffness: 80, damping: 20 })
-
-  const handleMouseMove = (e) => {
-    if (prefersReducedMotion) return
-    const rect = containerRef.current?.getBoundingClientRect()
-    if (!rect) return
-    const x = (e.clientX - rect.left - rect.width / 2) / rect.width
-    const y = (e.clientY - rect.top - rect.height / 2) / rect.height
-    mouseX.set(x * 10)
-    mouseY.set(y * 10)
-  }
-
-  const handleMouseLeave = () => {
-    mouseX.set(0)
-    mouseY.set(0)
-  }
-
+function HeroVisual({ prefersReducedMotion }) {
   return (
-    <>
+    <div className="relative w-full">
       <div
-        ref={containerRef}
-        className="hidden sm:block relative w-full max-w-[420px] mx-auto lg:mx-0 lg:ml-auto h-[400px] lg:h-[430px]"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        className="absolute -inset-4 sm:-inset-6 rounded-[2rem] bg-gradient-to-br from-accent/[0.07] via-transparent to-accent-warm/[0.06] blur-[56px] pointer-events-none"
+        aria-hidden="true"
+      />
+
+      <motion.div
+        className="relative rounded-2xl sm:rounded-[1.75rem] lg:rounded-[2rem] overflow-hidden hero-media-frame"
+        whileHover={prefersReducedMotion ? {} : { scale: 1.008 }}
+        transition={{ type: 'spring', stiffness: 320, damping: 28 }}
       >
+        <HeroMedia
+          videoSrc={heroLoop}
+          imageSrc={portraits.main}
+          alt="Портрет Татьяны Громовой"
+          caption="Здесь будет портрет или видео"
+          aspectRatio="aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] xl:aspect-[3/4]"
+          className="rounded-[inherit]"
+          objectPosition="center 20%"
+        />
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[85%] rounded-full bg-accent/[0.08] blur-[80px] pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-t from-graphite/30 via-transparent to-graphite/10 pointer-events-none"
           aria-hidden="true"
         />
-
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center"
-          style={prefersReducedMotion ? {} : { x: springX, y: springY }}
-        >
-          <div className="absolute w-[72%] h-[78%] rounded-[2rem] border border-accent/12 bg-accent/[0.03]" aria-hidden="true" />
-          <div className="absolute w-[76%] h-[82%] rounded-[2.25rem] border border-white/[0.04]" aria-hidden="true" />
-
-          <motion.div
-            className="relative w-[66%] z-20 rounded-[1.75rem] overflow-hidden premium-frame"
-            whileHover={prefersReducedMotion ? {} : { scale: 1.012 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-          >
-            <div className="relative">
-              <HeroMedia
-                videoSrc={heroLoop}
-                imageSrc={portraits.main}
-                alt="Портрет Татьяны Громовой"
-                caption="Здесь будет портрет или видео"
-                aspectRatio="aspect-[3/4]"
-                className="rounded-[1.75rem]"
-                objectPosition="center 18%"
-              />
-              <HeroMediaInterior />
-            </div>
-          </motion.div>
-
-          {floatingCards.map((card, i) => (
-            <motion.div
-              key={card.label}
-              className={`floating-card absolute ${card.position}`}
-              style={{ zIndex: card.z }}
-              initial={{ opacity: 0, scale: 0.88 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: card.delay, duration: 0.5 }}
-              whileHover={prefersReducedMotion ? {} : { y: -5, scale: 1.04 }}
-            >
-              <motion.span
-                className="block"
-                animate={prefersReducedMotion ? {} : { y: [0, i % 2 === 0 ? -3 : 3, 0] }}
-                transition={{ duration: 4.5 + i * 0.4, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                {card.label}
-              </motion.span>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-
-      <div className="sm:hidden relative w-full max-w-sm mx-auto">
-        <div className="relative rounded-2xl overflow-hidden premium-frame">
-          <div className="relative">
-            <HeroMedia
-              videoSrc={heroLoop}
-              imageSrc={portraits.main}
-              alt="Портрет Татьяны Громовой"
-              caption="Здесь будет портрет или видео"
-              aspectRatio="aspect-[5/4]"
-              className="rounded-2xl"
-              objectPosition="center 18%"
-            />
-            <HeroMediaInterior compact />
-          </div>
-        </div>
-
-        <div className="mt-3 flex flex-wrap justify-center gap-2">
-          {floatingCards.map((card) => (
-            <div key={card.label} className="floating-card text-center text-[11px] py-2 px-3">
-              {card.label}
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
+      </motion.div>
+    </div>
   )
 }
 
@@ -141,7 +54,7 @@ export default function Hero() {
     <section
       id="hero"
       ref={ref}
-      className="relative min-h-[85vh] flex items-center overflow-hidden hero-bg"
+      className="relative min-h-[88vh] flex items-center overflow-hidden hero-bg"
     >
       <div className="absolute inset-0 hero-noise pointer-events-none opacity-80" aria-hidden="true" />
 
@@ -150,7 +63,7 @@ export default function Hero() {
         aria-hidden="true"
       />
       <div
-        className="absolute top-[30%] right-[5%] w-[380px] h-[380px] rounded-full bg-gradient-to-br from-accent-soft/[0.07] to-accent-warm/[0.08] blur-[100px] pointer-events-none"
+        className="absolute top-[30%] right-[5%] w-[480px] h-[480px] rounded-full bg-gradient-to-br from-accent-soft/[0.07] to-accent-warm/[0.08] blur-[100px] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -167,17 +80,12 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="container-wide w-full px-5 sm:px-8 lg:px-12 xl:px-16 pt-20 sm:pt-24 pb-10 sm:pb-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-14 items-center">
+      <div className="container-wide w-full px-5 sm:px-8 lg:px-12 xl:px-16 pt-20 sm:pt-24 pb-12 sm:pb-14 relative z-10">
+        <div className="grid lg:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)] gap-10 lg:gap-14 xl:gap-16 items-center">
           <motion.div
-            className="relative"
+            className="relative max-w-xl lg:max-w-[32rem]"
             style={prefersReducedMotion ? {} : { y, opacity }}
           >
-            <div
-              className="absolute -top-8 -left-8 w-64 h-48 rounded-full bg-accent/[0.06] blur-[70px] pointer-events-none hidden lg:block"
-              aria-hidden="true"
-            />
-
             <motion.div
               variants={fadeUp}
               initial="hidden"
@@ -199,7 +107,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.h1
-              className="font-heading text-[1.7rem] sm:text-[2.4rem] md:text-[2.75rem] lg:text-[3.05rem] font-bold text-milk leading-[1.12] tracking-[-0.025em] max-w-[18ch] sm:max-w-none"
+              className="font-heading text-[1.7rem] sm:text-[2.35rem] md:text-[2.65rem] lg:text-[2.85rem] xl:text-[3rem] font-bold text-milk leading-[1.12] tracking-[-0.025em] max-w-[18ch] sm:max-w-[22ch]"
               variants={fadeUp}
               initial="hidden"
               animate="visible"
@@ -209,7 +117,7 @@ export default function Hero() {
             </motion.h1>
 
             <motion.p
-              className="mt-4 sm:mt-5 text-base sm:text-lg text-soft-gray leading-[1.7] max-w-xl"
+              className="mt-4 sm:mt-5 text-base sm:text-lg text-soft-gray leading-[1.7] max-w-lg"
               variants={fadeUp}
               initial="hidden"
               animate="visible"
@@ -219,7 +127,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.div
-              className="mt-5 author-line author-line-enhanced"
+              className="mt-5 author-line author-line-enhanced max-w-md"
               variants={fadeUp}
               initial="hidden"
               animate="visible"
@@ -272,12 +180,13 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
+            className="w-full lg:min-h-[min(72vh,640px)] flex items-center"
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.25 }}
           >
-            <HeroVisualComposition prefersReducedMotion={prefersReducedMotion} />
+            <HeroVisual prefersReducedMotion={prefersReducedMotion} />
           </motion.div>
         </div>
       </div>
