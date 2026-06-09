@@ -2,8 +2,8 @@ import neuroVideo from '../assets/video/neuro-video.mp4'
 import aiVideoMain from '../assets/video/ai-video-main.mp4'
 import aiVideoDino from '../assets/video/ai-video-dino.mp4'
 import aiVideoMaslenitsa from '../assets/video/ai-video-maslenitsa.mp4'
-import aiVideoPolyglot from '../assets/video/ai-video-polyglot.mp4'
-import aiVideoSatkaChocolate from '../assets/video/ai-video-satka-chocolate.mp4'
+import aiVideoPolyglot from '../assets/video/ai-video-polyglot.MP4'
+import aiVideoSatkaChocolate from '../assets/video/ai-video-satka-chocolate.MP4'
 import { resolveMedia } from './media'
 
 const aiVideoMainResolved = aiVideoMain ?? resolveMedia('video/ai-video-main.mp4')
