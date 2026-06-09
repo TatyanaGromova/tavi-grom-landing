@@ -12,7 +12,7 @@ export default function HeroMediaInterior({ compact = false }) {
         className="absolute inset-0 opacity-[0.18]"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(184,169,217,0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(184,169,217,0.14) 1px, transparent 1px)',
+            'linear-gradient(rgba(214,185,140,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(214,185,140,0.12) 1px, transparent 1px)',
           backgroundSize: compact ? '28px 28px' : '36px 36px',
         }}
       />

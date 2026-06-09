@@ -103,8 +103,8 @@ export default function Contact() {
             onClick={() => setShowForm(!showForm)}
             className="flex-1 px-6 py-3.5 font-medium rounded-xl transition-all duration-300 border text-milk"
             style={{
-              background: 'rgba(216, 163, 122, 0.12)',
-              borderColor: 'rgba(216, 163, 122, 0.28)',
+              background: 'rgba(201, 130, 85, 0.12)',
+              borderColor: 'rgba(201, 130, 85, 0.28)',
             }}
           >
             Оставить заявку

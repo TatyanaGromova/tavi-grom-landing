@@ -76,7 +76,7 @@ export default function PlaceholderMedia({
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 60% 50% at 50% 40%, rgba(184,169,217,0.14), transparent 70%)',
+              'radial-gradient(ellipse 60% 50% at 50% 40%, rgba(214,185,140,0.12), transparent 70%)',
           }}
           aria-hidden="true"
         />
@@ -136,7 +136,7 @@ export default function PlaceholderMedia({
       <div
         className={`absolute inset-0 rounded-[inherit] pointer-events-none ${
           premium
-            ? 'border border-lavender/25 shadow-[inset_0_0_40px_rgba(184,169,217,0.08)]'
+            ? 'border border-accent/25 shadow-[inset_0_0_40px_rgba(214,185,140,0.08)]'
             : 'border border-white/10'
         }`}
         aria-hidden="true"

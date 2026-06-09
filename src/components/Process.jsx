@@ -23,7 +23,7 @@ function ProcessStep({ step, index, total }) {
       <div className="flex flex-col items-center">
         <motion.div
           className="w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-panel flex items-center justify-center font-heading font-bold text-lavender text-sm sm:text-base z-10"
-          whileInView={{ boxShadow: '0 0 24px rgba(184,169,217,0.28)' }}
+          whileInView={{ boxShadow: '0 0 24px rgba(214,185,140,0.28)' }}
           viewport={{ once: false, margin: '-100px' }}
         >
           {step.id}

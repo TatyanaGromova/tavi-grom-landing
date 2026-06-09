@@ -1,4 +1,4 @@
-export default function Logo({ className = '', dotClassName = 'text-lavender' }) {
+export default function Logo({ className = '', dotClassName = 'text-accent' }) {
   return (
     <span className={`inline-flex items-baseline whitespace-nowrap tracking-[-0.02em] ${className}`}>
       <span className="text-milk">ТА</span>

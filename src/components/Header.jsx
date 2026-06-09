@@ -59,7 +59,7 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'header-glass' : 'bg-bg/30 backdrop-blur-md border-b border-transparent'
+        scrolled ? 'header-glass' : 'bg-graphite/40 backdrop-blur-md border-b border-transparent'
       }`}
     >
       <div className="container-wide flex items-center justify-between h-16 sm:h-[4.5rem] px-5 sm:px-8 lg:px-12">
@@ -83,7 +83,7 @@ export default function Header() {
                 className={`relative px-4 py-2 text-[13px] font-medium transition-colors duration-200 rounded-lg tracking-[0.02em] ${
                   isActive
                     ? 'text-milk'
-                    : 'text-cream-muted hover:text-milk hover:bg-white/[0.04]'
+                    : 'text-soft-gray hover:text-accent-soft hover:bg-white/[0.04]'
                 }`}
                 aria-current={isActive ? 'true' : undefined}
               >
@@ -147,7 +147,7 @@ export default function Header() {
                   transition={{ delay: i * 0.05 }}
                   onClick={() => handleNavClick(item.id)}
                   className={`text-2xl font-heading font-medium py-3 px-6 transition-colors ${
-                    activeSection === item.id ? 'text-lavender-soft' : 'text-milk hover:text-lavender'
+                    activeSection === item.id ? 'text-accent-soft' : 'text-milk hover:text-accent'
                   }`}
                 >
                   {item.label}

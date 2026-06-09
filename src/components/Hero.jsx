@@ -54,7 +54,7 @@ function HeroVisualComposition({ prefersReducedMotion }) {
         onMouseLeave={handleMouseLeave}
       >
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[85%] rounded-full bg-apricot/[0.07] blur-[80px] pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[85%] rounded-full bg-accent/[0.08] blur-[80px] pointer-events-none"
           aria-hidden="true"
         />
 
@@ -62,7 +62,7 @@ function HeroVisualComposition({ prefersReducedMotion }) {
           className="absolute inset-0 flex items-center justify-center"
           style={prefersReducedMotion ? {} : { x: springX, y: springY }}
         >
-          <div className="absolute w-[72%] h-[78%] rounded-[2rem] border border-lavender/10 bg-lavender/[0.03]" aria-hidden="true" />
+          <div className="absolute w-[72%] h-[78%] rounded-[2rem] border border-accent/12 bg-accent/[0.03]" aria-hidden="true" />
           <div className="absolute w-[76%] h-[82%] rounded-[2.25rem] border border-white/[0.04]" aria-hidden="true" />
 
           <motion.div
@@ -176,22 +176,22 @@ export default function Hero() {
       <div className="absolute inset-0 hero-noise pointer-events-none opacity-80" aria-hidden="true" />
 
       <div
-        className="absolute top-[18%] left-[8%] w-[420px] h-[320px] rounded-full bg-lavender/[0.09] blur-[110px] pointer-events-none"
+        className="absolute top-[18%] left-[8%] w-[420px] h-[320px] rounded-full bg-accent-soft/[0.08] blur-[110px] pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="absolute top-[30%] right-[5%] w-[380px] h-[380px] rounded-full bg-gradient-to-br from-powder/[0.07] to-apricot/[0.08] blur-[100px] pointer-events-none"
+        className="absolute top-[30%] right-[5%] w-[380px] h-[380px] rounded-full bg-gradient-to-br from-accent-soft/[0.07] to-accent-warm/[0.08] blur-[100px] pointer-events-none"
         aria-hidden="true"
       />
 
       <motion.div
-        className="absolute top-[15%] left-[5%] w-72 h-72 rounded-full bg-lavender/[0.05] blur-[100px]"
+        className="absolute top-[15%] left-[5%] w-72 h-72 rounded-full bg-accent/[0.05] blur-[100px]"
         animate={prefersReducedMotion ? {} : { x: [0, 20, 0], y: [0, -12, 0] }}
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
         aria-hidden="true"
       />
       <motion.div
-        className="absolute bottom-[15%] right-[10%] w-64 h-64 rounded-full bg-apricot/[0.05] blur-[100px]"
+        className="absolute bottom-[15%] right-[10%] w-64 h-64 rounded-full bg-accent-warm/[0.05] blur-[100px]"
         animate={prefersReducedMotion ? {} : { x: [0, -15, 0], y: [0, 10, 0] }}
         transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
         aria-hidden="true"
@@ -204,7 +204,7 @@ export default function Hero() {
             style={prefersReducedMotion ? {} : { y, opacity }}
           >
             <div
-              className="absolute -top-8 -left-8 w-64 h-48 rounded-full bg-lavender/[0.06] blur-[70px] pointer-events-none hidden lg:block"
+              className="absolute -top-8 -left-8 w-64 h-48 rounded-full bg-accent/[0.06] blur-[70px] pointer-events-none hidden lg:block"
               aria-hidden="true"
             />
 

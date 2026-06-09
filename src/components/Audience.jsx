@@ -21,7 +21,7 @@ export default function Audience() {
           {audienceCards.map((card) => (
             <motion.div
               key={card.id}
-              className="group premium-card rounded-2xl p-6 hover:border-lavender/20 transition-all duration-300 hover:shadow-[0_8px_36px_rgba(184,169,217,0.1)]"
+              className="group premium-card rounded-2xl p-6 hover:border-accent/25 transition-all duration-300 hover:shadow-[0_8px_36px_rgba(214,185,140,0.1)]"
               variants={fadeUp}
               whileHover={{ y: -4 }}
             >
