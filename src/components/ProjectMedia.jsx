@@ -19,6 +19,42 @@ export function resolveProjectMedia(project, overrides = {}) {
   return { fit, position }
 }
 
+function ContainBackdrop({ src, isVideo = false }) {
+  if (!src) {
+    return <div className="project-media__backdrop" aria-hidden="true" />
+  }
+
+  if (isVideo) {
+    return (
+      <>
+        <video
+          className="project-media__blur-bg"
+          src={src}
+          muted
+          playsInline
+          autoPlay
+          loop
+          preload="metadata"
+          aria-hidden="true"
+          tabIndex={-1}
+        />
+        <div className="project-media__backdrop" aria-hidden="true" />
+      </>
+    )
+  }
+
+  return (
+    <>
+      <div
+        className="project-media__blur-bg"
+        style={{ backgroundImage: `url(${src})` }}
+        aria-hidden="true"
+      />
+      <div className="project-media__backdrop" aria-hidden="true" />
+    </>
+  )
+}
+
 export default function ProjectMedia({
   project,
   variant = 'card',
@@ -93,9 +129,11 @@ export default function ProjectMedia({
       )
     }
 
+    const blurSrc = isContain ? project?.image || videoSrc : null
+
     return (
       <div className={shellClass}>
-        {isContain && <div className="project-media__backdrop" aria-hidden="true" />}
+        {isContain && <ContainBackdrop src={blurSrc} isVideo={!project?.image} />}
         <video
           key={videoSrc}
           src={videoSrc}
@@ -133,7 +171,7 @@ export default function ProjectMedia({
 
   return (
     <div className={shellClass}>
-      {isContain && <div className="project-media__backdrop" aria-hidden="true" />}
+      {isContain && <ContainBackdrop src={imageSrc} />}
       <img
         src={imageSrc}
         alt={resolvedAlt}

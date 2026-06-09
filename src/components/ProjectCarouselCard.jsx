@@ -20,10 +20,11 @@ export default function ProjectCarouselCard({ project, index, onOpenDetails }) {
       </div>
 
       <div className="project-carousel-card__body">
-        {primaryTag && <span className="project-carousel-card__tag">{primaryTag}</span>}
-
-        <h3 className="project-carousel-card__title">{project.title}</h3>
-        <p className="project-carousel-card__desc">{project.description}</p>
+        <div className="project-carousel-card__content">
+          {primaryTag && <span className="project-carousel-card__tag">{primaryTag}</span>}
+          <h3 className="project-carousel-card__title">{project.title}</h3>
+          <p className="project-carousel-card__desc">{project.description}</p>
+        </div>
 
         <button
           ref={triggerRef}

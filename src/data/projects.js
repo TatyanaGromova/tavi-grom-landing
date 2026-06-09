@@ -120,7 +120,7 @@ export const projects = [
     videoGallery: null,
     alt: 'Приложение-планер для задач и бюджета',
     mediaFit: 'contain',
-    mediaPosition: 'center top',
+    mediaPosition: 'center',
   },
   {
     id: 4,
