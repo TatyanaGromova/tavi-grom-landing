@@ -131,13 +131,21 @@
   }
 
   .author-line {
-    @apply inline-flex items-center gap-2.5 sm:gap-3 text-[11px] sm:text-xs tracking-[0.14em] uppercase font-medium;
-    color: var(--text-secondary);
+    @apply inline-flex items-center gap-2.5 sm:gap-3 text-[11px] sm:text-xs tracking-[0.16em] uppercase font-medium;
+    color: rgba(214, 185, 140, 0.75);
+  }
+
+  .author-line-enhanced {
+    padding: 0.5rem 0;
+    border-top: 1px solid rgba(214, 185, 140, 0.12);
+    border-bottom: 1px solid rgba(214, 185, 140, 0.12);
+    background: linear-gradient(90deg, rgba(214, 185, 140, 0.04), transparent 40%, rgba(201, 130, 85, 0.04));
   }
 
   .author-dot {
     @apply w-1 h-1 rounded-full shrink-0;
-    background: rgba(214, 185, 140, 0.55);
+    background: rgba(214, 185, 140, 0.7);
+    box-shadow: 0 0 6px rgba(214, 185, 140, 0.35);
   }
 
   .section-padding {
@@ -237,7 +245,82 @@
   }
 
   .section-surface {
-    background: linear-gradient(180deg, rgba(26, 26, 31, 0.5) 0%, rgba(18, 19, 22, 0.25) 100%);
+    background: linear-gradient(180deg, rgba(26, 26, 31, 0.55) 0%, rgba(18, 19, 22, 0.3) 100%);
+    border-top: 1px solid rgba(214, 185, 140, 0.06);
+    border-bottom: 1px solid rgba(214, 185, 140, 0.04);
+  }
+
+  .section-alt {
+    background:
+      radial-gradient(ellipse 50% 40% at 80% 20%, rgba(201, 130, 85, 0.04), transparent 60%),
+      radial-gradient(ellipse 45% 35% at 10% 80%, rgba(214, 185, 140, 0.05), transparent 55%),
+      linear-gradient(180deg, rgba(22, 21, 26, 0.4) 0%, rgba(18, 19, 22, 0.15) 100%);
+  }
+
+  .assemble-card {
+    @apply relative rounded-2xl p-6 sm:p-7 transition-all duration-300;
+    background: linear-gradient(145deg, rgba(41, 39, 45, 0.92) 0%, rgba(34, 33, 38, 0.85) 100%);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft), var(--inset-shine);
+  }
+
+  .assemble-card:hover {
+    border-color: rgba(214, 185, 140, 0.28);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28), 0 0 32px rgba(214, 185, 140, 0.08), var(--inset-shine);
+  }
+
+  .assemble-index {
+    @apply flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-xs font-semibold;
+    color: var(--accent-soft);
+    background: rgba(214, 185, 140, 0.1);
+    border: 1px solid rgba(214, 185, 140, 0.22);
+    box-shadow: 0 0 16px rgba(214, 185, 140, 0.1);
+  }
+
+  .assemble-line {
+    stroke: rgba(214, 185, 140, 0.22);
+    stroke-width: 1;
+  }
+
+  .assemble-line-dashed {
+    stroke: rgba(201, 130, 85, 0.15);
+    stroke-width: 1;
+    stroke-dasharray: 4 6;
+  }
+
+  .assemble-node {
+    fill: rgba(214, 185, 140, 0.5);
+  }
+
+  .assemble-node-center {
+    fill: rgba(201, 130, 85, 0.6);
+    filter: drop-shadow(0 0 4px rgba(201, 130, 85, 0.4));
+  }
+
+  .skill-chain-node {
+    @apply flex items-center justify-center w-8 h-8 rounded-full text-xs font-semibold;
+    color: var(--accent-soft);
+    background: rgba(214, 185, 140, 0.1);
+    border: 1px solid rgba(214, 185, 140, 0.25);
+    box-shadow: 0 0 20px rgba(201, 130, 85, 0.12);
+  }
+
+  .skill-chain-line {
+    @apply h-px flex-1 min-w-[12px] max-w-[40px];
+    background: linear-gradient(90deg, rgba(214, 185, 140, 0.35), rgba(201, 130, 85, 0.25));
+    position: relative;
+  }
+
+  .skill-chain-line::after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(201, 130, 85, 0.5);
   }
 
   .header-glass {

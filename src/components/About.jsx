@@ -22,18 +22,23 @@ export default function About() {
         <SectionTitle title="Обо мне" />
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start mb-12 sm:mb-16">
-          <motion.p
-            className="text-base sm:text-lg text-soft-gray leading-relaxed lg:leading-loose"
+          <motion.div
+            className="space-y-5 text-base sm:text-lg text-soft-gray leading-relaxed lg:leading-loose"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeUp}
           >
-            Я Татьяна Громова, креатор нейросетевых и цифровых проектов. Работаю с визуалом, видео, сайтами, играми, приложениями, ботами и креативными концепциями. Мне важно не просто сделать красиво, а собрать образ, смысл и структуру так, чтобы проект запоминался и работал на задачу.
-          </motion.p>
+            <p>
+              Я Татьяна Громова. Создаю проекты на стыке визуала, нейросетей и цифровой сборки. Мне интересно не просто сделать красиво, а найти форму для идеи: образ, структуру, настроение, сценарий и путь пользователя.
+            </p>
+            <p>
+              В одном проекте я могу думать как арт-директор, специалист по промптам, сценарист, дизайнер интерфейса и вайбкодер — поэтому результат получается цельным, а не собранным из разрозненных кусочков.
+            </p>
+          </motion.div>
 
           <motion.div
-            className="rounded-2xl overflow-hidden glass-panel max-w-sm mx-auto lg:mx-0 lg:ml-auto"
+            className="relative rounded-2xl overflow-hidden premium-frame max-w-sm mx-auto lg:mx-0 lg:ml-auto"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -46,8 +51,10 @@ export default function About() {
               type="portrait"
               variant={1}
               aspectRatio="aspect-[3/4]"
-              objectPosition="center top"
+              objectPosition="center 15%"
+              premium
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-graphite/25 via-transparent to-transparent pointer-events-none" aria-hidden="true" />
           </motion.div>
         </div>
 
@@ -61,7 +68,7 @@ export default function About() {
           {roles.map((role, i) => (
             <motion.div
               key={role}
-              className="premium-card rounded-xl px-5 py-4 text-sm sm:text-base text-milk hover:border-accent/20 transition-all duration-300"
+              className="premium-card rounded-xl px-5 py-4 text-sm sm:text-base text-milk hover:border-accent/25 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(214,185,140,0.08)]"
               variants={fadeUp}
             >
               <span className="text-lavender/50 mr-2">{String(i + 1).padStart(2, '0')}</span>

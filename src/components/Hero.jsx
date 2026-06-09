@@ -8,12 +8,9 @@ import { portraits } from '../data/portraits'
 import { scrollToSection, useMotionSettings } from '../utils/motion'
 
 const floatingCards = [
-  { label: 'Визуалы', position: 'top-[10%] left-[2%]', z: 30, delay: 0.5 },
-  { label: 'Сайты', position: 'top-[5%] right-[4%]', z: 40, delay: 0.6 },
-  { label: 'Игры', position: 'top-[42%] left-[-2%]', z: 22, delay: 0.7 },
-  { label: 'Приложения', position: 'bottom-[32%] right-[0%]', z: 36, delay: 0.8 },
-  { label: 'Боты', position: 'bottom-[12%] left-[6%]', z: 28, delay: 0.9 },
-  { label: 'Видео', position: 'bottom-[8%] right-[12%]', z: 32, delay: 1.0 },
+  { label: 'Визуалы', position: 'top-[6%] left-[0%]', z: 20, delay: 0.5 },
+  { label: 'Сайты', position: 'top-[4%] right-[0%]', z: 20, delay: 0.65 },
+  { label: 'Видео', position: 'bottom-[6%] right-[2%]', z: 20, delay: 0.8 },
 ]
 
 const factTags = ['Визуал', 'Видео', 'Сайты', 'Игры', 'Приложения', 'Боты']
@@ -69,20 +66,6 @@ function HeroVisualComposition({ prefersReducedMotion }) {
             whileHover={prefersReducedMotion ? {} : { scale: 1.012 }}
             transition={{ type: 'spring', stiffness: 300, damping: 24 }}
           >
-            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/[0.06] to-transparent z-20 pointer-events-none" aria-hidden="true" />
-            <div className="absolute top-0 left-0 right-0 z-30 px-4 py-3 flex items-center justify-between">
-              <span className="text-[10px] sm:text-xs uppercase tracking-[0.15em] text-lavender/70 font-medium">
-                Главный визуал
-              </span>
-              <span className="flex gap-1" aria-hidden="true">
-                <span className="w-1 h-1 rounded-full bg-lavender/40" />
-                <span className="w-1 h-1 rounded-full bg-apricot/40" />
-                <span className="w-1 h-1 rounded-full bg-powder/40" />
-              </span>
-            </div>
-
-            <div className="absolute top-12 left-4 right-4 h-px bg-gradient-to-r from-transparent via-lavender/25 to-transparent z-20" aria-hidden="true" />
-
             <div className="relative">
               <HeroMedia
                 videoSrc={heroLoop}
@@ -91,7 +74,7 @@ function HeroVisualComposition({ prefersReducedMotion }) {
                 caption="Здесь будет портрет или видео"
                 aspectRatio="aspect-[3/4]"
                 className="rounded-[1.75rem]"
-                objectPosition="center top"
+                objectPosition="center 18%"
               />
               <HeroMediaInterior />
             </div>
@@ -121,16 +104,6 @@ function HeroVisualComposition({ prefersReducedMotion }) {
 
       <div className="sm:hidden relative w-full max-w-sm mx-auto">
         <div className="relative rounded-2xl overflow-hidden premium-frame">
-          <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/[0.05] to-transparent z-20 pointer-events-none" aria-hidden="true" />
-          <div className="absolute top-0 left-0 right-0 z-20 px-4 py-2.5 flex items-center justify-between">
-            <span className="text-[10px] uppercase tracking-[0.15em] text-lavender/70 font-medium">
-              Главный визуал
-            </span>
-            <span className="flex gap-1" aria-hidden="true">
-              <span className="w-1 h-1 rounded-full bg-lavender/40" />
-              <span className="w-1 h-1 rounded-full bg-apricot/40" />
-            </span>
-          </div>
           <div className="relative">
             <HeroMedia
               videoSrc={heroLoop}
@@ -139,15 +112,15 @@ function HeroVisualComposition({ prefersReducedMotion }) {
               caption="Здесь будет портрет или видео"
               aspectRatio="aspect-[5/4]"
               className="rounded-2xl"
-              objectPosition="center top"
+              objectPosition="center 18%"
             />
             <HeroMediaInterior compact />
           </div>
         </div>
 
-        <div className="mt-3 grid grid-cols-3 gap-1.5">
+        <div className="mt-3 flex flex-wrap justify-center gap-2">
           {floatingCards.map((card) => (
-            <div key={card.label} className="floating-card text-center text-[11px] py-2 px-1.5">
+            <div key={card.label} className="floating-card text-center text-[11px] py-2 px-3">
               {card.label}
             </div>
           ))}
@@ -242,11 +215,11 @@ export default function Hero() {
               animate="visible"
               transition={{ delay: 0.2 }}
             >
-              Визуалы, сайты, игры, приложения, боты, ролики и проекты с нейросетями — от идеи до готовой формы.
+              Визуалы, сайты, игры, приложения, боты и ролики — собираю из идеи цельный цифровой образ, который хочется рассматривать и запоминать.
             </motion.p>
 
             <motion.div
-              className="mt-4 author-line"
+              className="mt-5 author-line author-line-enhanced"
               variants={fadeUp}
               initial="hidden"
               animate="visible"

@@ -3,6 +3,7 @@ import PlaceholderMedia from './PlaceholderMedia'
 
 export default function ProjectPreviewVideo({
   src,
+  fallbackSrc = null,
   alt = 'Видео-превью проекта',
   caption = 'Здесь будет видео проекта',
   aspectRatio = 'aspect-[16/10]',
@@ -10,9 +11,18 @@ export default function ProjectPreviewVideo({
   objectPosition = 'center',
   variant = 0,
 }) {
+  const [currentSrc, setCurrentSrc] = useState(src)
   const [failed, setFailed] = useState(false)
 
-  if (!src || failed) {
+  const handleError = () => {
+    if (fallbackSrc && currentSrc !== fallbackSrc) {
+      setCurrentSrc(fallbackSrc)
+      return
+    }
+    setFailed(true)
+  }
+
+  if (!currentSrc || failed) {
     return (
       <PlaceholderMedia
         src={null}
@@ -23,6 +33,7 @@ export default function ProjectPreviewVideo({
         aspectRatio={aspectRatio}
         className={className}
         objectPosition={objectPosition}
+        premium
       />
     )
   }
@@ -30,7 +41,8 @@ export default function ProjectPreviewVideo({
   return (
     <div className={`relative overflow-hidden ${aspectRatio} ${className}`}>
       <video
-        src={src}
+        key={currentSrc}
+        src={currentSrc}
         autoPlay
         muted
         loop
@@ -39,7 +51,7 @@ export default function ProjectPreviewVideo({
         className="absolute inset-0 w-full h-full object-cover"
         style={{ objectPosition }}
         aria-label={alt}
-        onError={() => setFailed(true)}
+        onError={handleError}
       />
       <div
         className="absolute inset-0 bg-gradient-to-t from-graphite/90 via-graphite/35 to-graphite/10 pointer-events-none"

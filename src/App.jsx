@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
+import Assemble from './components/Assemble'
 import About from './components/About'
 import Services from './components/Services'
 import Skills from './components/Skills'
@@ -18,6 +19,7 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <Assemble />
       <About />
       <Services />
       <Skills />

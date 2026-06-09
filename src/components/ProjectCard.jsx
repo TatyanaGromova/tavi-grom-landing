@@ -13,6 +13,7 @@ export default function ProjectCard({
   imageAlt,
   video = null,
   previewVideo = null,
+  previewVideoFallback = null,
   videoGallery = null,
   objectPosition = 'center',
   index = 0,
@@ -21,12 +22,14 @@ export default function ProjectCard({
   const hasGallery = videoGallery && videoGallery.length > 0
   const showMedia = previewVideo || video || image || !hasGallery
   const enableHoverLift = !prefersReducedMotion && (!hasGallery || previewVideo)
+  const hasImageOnly = !previewVideo && !video && image
 
   const renderMedia = () => {
     if (previewVideo) {
       return (
         <ProjectPreviewVideo
           src={previewVideo}
+          fallbackSrc={previewVideoFallback}
           alt={imageAlt}
           caption="Здесь будет видео проекта"
           aspectRatio="aspect-[16/10]"
@@ -74,6 +77,12 @@ export default function ProjectCard({
       {showMedia && (
         <div className="relative overflow-hidden shrink-0">
           {renderMedia()}
+          {hasImageOnly && (
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-graphite/75 via-graphite/20 to-graphite/5 pointer-events-none"
+              aria-hidden="true"
+            />
+          )}
           {!hasGallery && (
             <div className="absolute inset-0 bg-gradient-to-t from-graphite/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5 pointer-events-none">
               <p className="text-sm text-milk/90 leading-relaxed line-clamp-3">
@@ -85,7 +94,18 @@ export default function ProjectCard({
       )}
 
       <div className={`p-5 sm:p-6 ${hasGallery ? 'pb-4' : ''}`}>
-        <span className="text-xs text-lavender/70 tracking-wide">{category}</span>
+        {category && (
+          <div className="flex flex-wrap gap-1.5">
+            {category.split(',').map((tag) => (
+              <span
+                key={tag.trim()}
+                className="text-[11px] px-2.5 py-1 rounded-md bg-accent/8 border border-accent/15 text-lavender/80 tracking-wide"
+              >
+                {tag.trim()}
+              </span>
+            ))}
+          </div>
+        )}
         <h3 className="font-heading text-lg sm:text-xl font-semibold text-milk mt-2">
           {title}
         </h3>

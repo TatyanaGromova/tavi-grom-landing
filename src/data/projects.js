@@ -116,11 +116,12 @@ export const projects = [
     title: 'AI-клипы и визуальные истории',
     category: 'видео, раскадровка, промпты',
     description:
-      'Собираю короткие визуальные истории: от идеи и атмосферы до кадров, промптов и выразительной подачи.',
+      'Короткие визуальные истории: динозавр, Масленица, Полиглот, Сатка в шоколаде и нейрофотосессии.',
     image: null,
     gallery: [],
     video: null,
-    previewVideo: aiVideoMainResolved,
+    previewVideo: aiVideoMainResolved || aiVideoDino,
+    previewVideoFallback: aiVideoDino,
     videoGallery: [
       {
         title: 'Ролик про динозавра',

@@ -15,7 +15,8 @@ export default function ServiceCard({ title, description, index = 0 }) {
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/8 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <div className="relative">
+      <div className="absolute left-0 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-accent/30 to-transparent opacity-60 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+      <div className="relative pl-1">
         <span className="inline-block text-xs font-medium text-lavender/70 mb-3 tracking-wider">
           {String(index + 1).padStart(2, '0')}
         </span>

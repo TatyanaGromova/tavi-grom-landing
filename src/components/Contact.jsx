@@ -74,7 +74,7 @@ export default function Contact() {
               viewport={{ once: true }}
               variants={fadeUp}
             >
-              Напишите мне, если нужен визуал, сайт, игра, приложение, бот, ролик, нейрофотосессия, упаковка проекта или консультация по нейросетям.
+              Есть идея, которую хочется превратить в сайт, визуал, ролик, игру, приложение или цифровую упаковку? Напишите мне — разберём задачу и найдём форму, в которой проект будет звучать сильнее.
             </motion.p>
           </div>
 
@@ -119,7 +119,7 @@ export default function Contact() {
             rel="noopener noreferrer"
             className="btn-secondary flex-1 text-center"
           >
-            Написать в Telegram
+            Написать в Телеграм
           </a>
           <button
             type="button"
