@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import PlaceholderMedia from './PlaceholderMedia'
-import { AboutRoleBranchDesktop, AboutRoleBranchMobile } from './AboutRoleBranch'
+import { AboutGraphDesktop, AboutGraphMobile } from './AboutGraph'
 import { portraits } from '../data/portraits'
 import { useMotionSettings } from '../utils/motion'
 
@@ -32,7 +32,7 @@ export default function About() {
               </p>
             </div>
 
-            <AboutRoleBranchDesktop />
+            <AboutGraphDesktop />
           </motion.div>
 
           <motion.div
@@ -61,7 +61,7 @@ export default function About() {
             </div>
           </motion.div>
 
-          <AboutRoleBranchMobile />
+          <AboutGraphMobile />
         </div>
       </div>
     </section>
